@@ -3,6 +3,9 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
 import Sevenbox from "./components/sevenBox";
+import GuestView from "./components/GuestView";
+import Navbar from "./components/NavBar";
+import MutasiView from "./components/mutasiView";
 
 function App() {
   return (
@@ -17,9 +20,23 @@ function App() {
           </Route>
           <Route path="/dashboard">
             <>
+              
+              <Navbar/>
               <Dashboard />
               <Sevenbox />
               {/* <Sidebar /> */}
+            </>
+          </Route>
+          <Route path="/tamu">
+          <>
+            <Navbar />
+            <GuestView />
+            </>
+          </Route>
+          <Route path="/mutasi">
+          <>
+            <Navbar />
+            <MutasiView />
             </>
           </Route>
         </Switch>
