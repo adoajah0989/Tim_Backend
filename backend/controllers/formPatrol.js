@@ -1,71 +1,66 @@
-import FormPatrol from '../models/formpatrolModel.js';
-import path from 'path';
-import fs from 'fs';
+import FormPatrol from "../models/formpatrolModel.js";
+import path from "path";
+import fs from "fs";
 
 // Mendapatkan semua data Form Patrol
 export const getFormPatrols = async (req, res) => {
   try {
-    const formPatrols = await FormPatrol.findAll();
-    res.json(formPatrols);
+    const response = await FormPatrol.findAll();
+    res.json(response);
   } catch (error) {
     console.error(error.message);
-    res.status(500).send('Server Error');
+    res.status(500).send("Server Error");
   }
 };
 
 // Mendapatkan data Form Patrol berdasarkan ID
 export const getFormPatrolById = async (req, res) => {
   try {
-    const formPatrol = await FormPatrol.findOne({
+    const response = await FormPatrol.findOne({
       where: {
         id: req.params.id,
       },
     });
 
-    if (!formPatrol) {
-      return res.status(404).json({ msg: 'Form Patrol not found' });
+    if (!response) {
+      return res.status(404).json({ msg: "Form Patrol not found" });
     }
 
     res.json(formPatrol);
   } catch (error) {
     console.error(error.message);
-    res.status(500).send('Server Error');
+    res.status(500).send("Server Error");
   }
 };
 
 export const saveFormPatrol = async (req, res) => {
-  try {
-    const { lokasi, uraianTemuan, tindakLanjut, status } = req.body;
-    const file1 = req.files.Url_Bukti1;
-    const file2 = req.files.Url_Bukti2;
+  if (req.files === null)
+    return res.status(400).json({ msg: "No File Uploaded" });
+  const tanggal = req.body.tanggal;
+  const uraianTemuan = req.body.uraianTemuan;
+  const lokasi= req.body.tanggal;
+  const tindakLanjut = req.body.tindakLanjut;
+  const status = req.body.status;
+  // const fileSize = file.data.length;
+  const ext = path.extname(file.name);
+  const fileName = file.md5 + ext;
+  const Url_bukti1 = `${req.protocol}://${req.get("host")}/images/${fileName}`;
+  const allowedType = [".png", ".jpg", ".jpeg"];
 
-    // Process each file if they exist
-    let buffer1 = null;
-    let buffer2 = null;
+  if (!allowedType.includes(ext.toLowerCase()))
+    return res.status(422).json({ msg: "Invalid Images" });
+  if (fileSize > 5000000)
+    return res.status(422).json({ msg: "Image must be less than 5 MB" });
 
-    if (file1) {
-      buffer1 = fs.readFileSync(file1.tempFilePath);
+  file.mv(`./public/images/${fileName}`, async (err) => {
+    if (err) return res.status(500).json({ msg: err.message });
+    try {
+      await FormPatrol.create({ tanggal:tanggal ,lokasi:lokasi ,uraianTemuan:uraianTemuan, image: fileName, Url_bukti1: Url_bukti1, tindakLanjut:tindakLanjut, status: status });
+      res.status(201).json({ msg: "Product Created Successfuly" });
+    } catch (error) {
+      console.log(error.message);
     }
-
-    if (file2) {
-      buffer2 = fs.readFileSync(file2.tempFilePath);
-    }
-
-    // Create a new FormPatrol document in the database
-    const newFormPatrol = await FormPatrol.create({
-      lokasi,
-      uraianTemuan,
-      Url_Bukti1: buffer1,
-      Url_Bukti2: buffer2,
-      tindakLanjut,
-      status,
-    });
-
-    res.json(newFormPatrol);
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).send('Server Error');
-  }
+  });
 };
 
 // Memperbarui data Form Patrol berdasarkan ID
@@ -89,10 +84,10 @@ export const updateFormPatrol = async (req, res) => {
       }
     );
 
-    res.json({ msg: 'Form Patrol updated successfully' });
+    res.json({ msg: "Form Patrol updated successfully" });
   } catch (error) {
     console.error(error.message);
-    res.status(500).send('Server Error');
+    res.status(500).send("Server Error");
   }
 };
 
@@ -105,9 +100,9 @@ export const deleteFormPatrol = async (req, res) => {
       },
     });
 
-    res.json({ msg: 'Form Patrol deleted successfully' });
+    res.json({ msg: "Form Patrol deleted successfully" });
   } catch (error) {
     console.error(error.message);
-    res.status(500).send('Server Error');
+    res.status(500).send("Server Error");
   }
 };

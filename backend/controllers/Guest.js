@@ -67,3 +67,4 @@ export const deleteGuest = async(req, res) =>{
         console.log(error.message);
     }
 }
+

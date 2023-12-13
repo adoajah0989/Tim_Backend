@@ -16,13 +16,21 @@ const FormPatrol = db.define('FormPatrol', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  Url_Bukti1: {
+  image1: {
     type: DataTypes.BLOB('long'),
     allowNull: true,
   },
-  Url_Bukti2: {
+  image2: {
     type: DataTypes.BLOB('long'),
     allowNull: true,
+  },
+  Url1: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  Url2: {
+    type: DataTypes.STRING,
+    allowNull: false,
   },
   tindakLanjut: {
     type: DataTypes.STRING,

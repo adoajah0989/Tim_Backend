@@ -16,12 +16,12 @@ body,.d-flex, .header, .box, .column p {
 }
 
 .col-md-4 {
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 
 .larger-box{
-  width: 150px;
-  height: 150px;
+  width: 90%;
+  height: 90%;
 }
 
 

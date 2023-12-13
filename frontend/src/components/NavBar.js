@@ -8,25 +8,30 @@ const Navbar = () => {
     // Pindah ke halaman dashboard
     window.location.href = "/dashboard";
   };
+  
+  const history = useHistory();
+  
+  // Move the handleLogout function declaration outside of ConfirmLogout
+  const handleLogout = async () => {
+    try {
+      // Lakukan permintaan ke endpoint logout
+      await axios.delete("http://localhost:5000/logout");
+      history.push("/login");
+    } catch (error) {
+      console.error("Error during logout:", error.message);
+    }
+  };
+  
   const ConfirmLogout = () => {
     // Tampilkan alert konfirmasi
-    const isConfirmed = window.confirm("Apakah Anda yakin ingin logout?");
-
+    const isConfirmed = window.confirm("Apakah Anda yakin ingin logout");
+  
     // Jika pengguna mengkonfirmasi, lakukan logout
     if (isConfirmed) {
       handleLogout();
     }
-    const history = useHistory();
-    const handleLogout = async () => {
-      try {
-        // Lakukan permintaan ke endpoint logout
-        await axios.delete("http://localhost:5000/logout");
-        history.push("/");
-      } catch (error) {
-        console.error("Error during logout:", error.message);
-      }
-    };
   };
+  
 
     return (
       <nav className="navbar navbar-expand navbar-dark bg-dark">

@@ -6,6 +6,8 @@ import Sevenbox from "./components/sevenBox";
 import GuestView from "./components/GuestView";
 import Navbar from "./components/NavBar";
 import MutasiView from "./components/mutasiView";
+import PatrolList from "./components/Patrol/PatrolList";
+
 
 function App() {
   return (
@@ -38,6 +40,10 @@ function App() {
             <Navbar />
             <MutasiView />
             </>
+          </Route>
+          <Route path="/formPatrol">
+            <Navbar/>
+            <PatrolList/>
           </Route>
         </Switch>
       </BrowserRouter>

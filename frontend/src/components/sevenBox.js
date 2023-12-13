@@ -39,7 +39,7 @@ const sevenBox = () => {
                   className="button box m-auto larger-box icon-square text-link"
                 >
                   <img
-                    className="p-3"
+                    className="p-2"
                     width="100"
                     height="100"
                     src="https://img.icons8.com/material-outlined/100/refresh--v1.png"
@@ -56,7 +56,6 @@ const sevenBox = () => {
                   className="button box m-auto larger-box icon-square text-link"
                 >
                   <img
-                    className="p-2"
                     width="100"
                     height="100"
                     src="https://img.icons8.com/material-outlined/100/data-in-both-directions.png"
@@ -69,7 +68,7 @@ const sevenBox = () => {
               {/* Kotak 4 */}
               <div className="col-md-4">
                 <a
-                  href="/ASSET"
+                  href="/formpatrol"
                   className="button box m-auto larger-box icon-square text-link"
                 >
                   <img width="100" height="100" src="https://img.icons8.com/windows/100/policeman-male--v1.png" alt="policeman-male--v1"/>
