@@ -41,9 +41,10 @@ export const saveFormPatrol = async (req, res) => {
   const lokasi= req.body.tanggal;
   const tindakLanjut = req.body.tindakLanjut;
   const status = req.body.status;
-  // const fileSize = file.data.length;
+  const fileSize = file.data.length;
   const ext = path.extname(file.name);
-  const fileName = file.md5 + ext;
+  const fileName1 = file1.md5 + ext;
+  const fileName2 = file2.md5 + ext;
   const Url_bukti1 = `${req.protocol}://${req.get("host")}/images/${fileName}`;
   const allowedType = [".png", ".jpg", ".jpeg"];
 
@@ -56,7 +57,7 @@ export const saveFormPatrol = async (req, res) => {
     if (err) return res.status(500).json({ msg: err.message });
     try {
       await FormPatrol.create({ tanggal:tanggal ,lokasi:lokasi ,uraianTemuan:uraianTemuan, image: fileName, Url_bukti1: Url_bukti1, tindakLanjut:tindakLanjut, status: status });
-      res.status(201).json({ msg: "Product Created Successfuly" });
+      res.status(201).json({ msg: "Created Form Successfuly" });
     } catch (error) {
       console.log(error.message);
     }
