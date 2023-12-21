@@ -2,13 +2,16 @@ import React from "react";
 import "../css/style.css";
 
 const sevenBox = () => {
+  const img = {
+    filter: "invert(1) hue-rotate(180deg)",
+  };
   return (
     <box>
       <link
         rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
       />
-      <div className="d-flex col rounded-3 m-5">
+      <div className="d-flex col rounded-3 p-2">
         <div id="kolom-kiri" className=" shadow-lg column">
           {/* Kolom Kiri */}
           <p>TEST KOLOM KIRI</p>
@@ -20,15 +23,16 @@ const sevenBox = () => {
               <div className="col-md-4">
                 <a
                   href="/tamu"
-                  className="button box m-auto larger-box icon-square text-link"
+                  className="button box m-auto larger-box icon-square is-info text-link"
                 >
                   <img
                     width="100"
                     height="100"
                     src="https://img.icons8.com/sf-regular/100/user-group-man-man.png"
                     alt="user-group-man-man"
+                    style={img}
                   />
-                  <p className="text-inside-box">Tamu</p>
+                  <p className="text-inside-box has-text-white">Tamu</p>
                 </a>
               </div>
 
@@ -36,7 +40,7 @@ const sevenBox = () => {
               <div className="col-md-4">
                 <a
                   href="/patroli"
-                  className="button box m-auto larger-box icon-square text-link"
+                  className="button box m-auto larger-box icon-square is-info text-link"
                 >
                   <img
                     className="p-2"
@@ -44,6 +48,7 @@ const sevenBox = () => {
                     height="100"
                     src="https://img.icons8.com/material-outlined/100/refresh--v1.png"
                     alt="refresh--v1"
+                    style={img}
                   />
                   <p className="text-inside-box">In Out</p>
                 </a>
@@ -53,13 +58,14 @@ const sevenBox = () => {
               <div className="col-md-4">
                 <a
                   href="/mutasi"
-                  className="button box m-auto larger-box icon-square text-link"
+                  className="button box m-auto larger-box icon-square is-info text-link"
                 >
                   <img
                     width="100"
                     height="100"
                     src="https://img.icons8.com/material-outlined/100/data-in-both-directions.png"
                     alt="data-in-both-directions"
+                    style={img}
                   />
                   <p className="text-inside-box">Mutasi</p>
                 </a>
@@ -68,36 +74,59 @@ const sevenBox = () => {
               {/* Kotak 4 */}
               <div className="col-md-4">
                 <a
-                  href="/formpatrol"
-                  className="button box m-auto larger-box icon-square text-link"
+                  href="/patroli"
+                  className="button box m-auto larger-box icon-square is-info text-link"
                 >
-                  <img width="100" height="100" src="https://img.icons8.com/windows/100/policeman-male--v1.png" alt="policeman-male--v1"/>
+                  <img
+                    width="100"
+                    height="100"
+                    src="https://img.icons8.com/windows/100/policeman-male--v1.png"
+                    alt="policeman-male--v1"
+                    style={img}
+                  />
                   <p className="text-inside-box">Patrol</p>
                 </a>
               </div>
 
               {/* Kotak 5 */}
               <div className="col-md-4">
-                <a className="button box m-auto larger-box icon-square text-link">
-                <img width="100" height="100" src="https://img.icons8.com/ios/100/health-graph.png" alt="health-graph"/>
+                <a className="button box m-auto larger-box icon-square is-info text-link">
+                  <img
+                    width="100"
+                    height="100"
+                    src="https://img.icons8.com/ios/100/health-graph.png"
+                    alt="health-graph"
+                    style={img}
+                  />
                   <p className="text-inside-box">Lapdi</p>
                 </a>
               </div>
 
               {/* Kotak 6 */}
               <div className="col-md-4">
-                <a className="button box m-auto larger-box icon-square text-link">
-                <img width="100" height="100" src="https://img.icons8.com/ios/100/task.png" alt="task"/>
+                <a className="button box m-auto larger-box icon-square is-info text-link">
+                  <img
+                    width="100"
+                    height="100"
+                    src="https://img.icons8.com/ios/100/task.png"
+                    alt="task"
+                    style={img}
+                  />
                   <p className="text-inside-box">B.A.P</p>
                 </a>
               </div>
               <div className="col-md-4">
                 <a
                   href="/ASSET"
-                  className="button box m-auto larger-box icon-square text-link"
+                  className="button box m-auto larger-box icon-square is-info text-link"
                 >
-                <img width="100" height="100" src="https://img.icons8.com/material-outlined/100/delivery.png" alt="delivery"/>
-
+                  <img
+                    width="100"
+                    height="100"
+                    src="https://img.icons8.com/material-outlined/100/delivery.png"
+                    alt="delivery"
+                    style={img}
+                  />
 
                   <p className="text-inside-box">B.Expedisi</p>
                 </a>
@@ -105,8 +134,14 @@ const sevenBox = () => {
 
               {/* Kotak 5 */}
               <div className="col-md-4">
-                <a className="button box m-auto larger-box icon-square text-link">
-                <img width="100" height="100" src="https://img.icons8.com/material-outlined/100/company-assets-.png" alt="company-assets-"/>
+                <a className="button box m-auto larger-box icon-square is-info text-link">
+                  <img
+                    width="100"
+                    height="100"
+                    src="https://img.icons8.com/material-outlined/100/company-assets-.png"
+                    alt="company-assets-"
+                    style={img}
+                  />
                   <p className="text-inside-box">Asset</p>
                 </a>
               </div>

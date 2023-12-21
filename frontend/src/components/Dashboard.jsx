@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useHistory } from "react-router-dom";
-import "../css/style.css";
+import '../css/style.css';
+
 
 const Dashboard = () => {
   const [name, setName] = useState("");
@@ -66,24 +67,16 @@ const Dashboard = () => {
         href="https://fonts.gstatic.com"
         crossorigin
       ></link>
-      <link
-        href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400;0,600;0,700;1,500&display=swap"
-        rel="stylesheet"
-      ></link>
-      <div className="box d-flex align-items-center justify-content-around">
-        <img
-          src="https://3.bp.blogspot.com/-Rh9L0YnoJuQ/WqtjzzFDtMI/AAAAAAAAJ4k/r5468TAe3zgeajHOds2i9N1cW_cpDbxNgCLcBGAs/s1600/Satpam.png"
-          alt="Satpam Image"
-          style={{ width: "100px", height: "100px", objectFit: "cover" }}
-        />
-        <div className="header">
-          <h1 className="has-text-weight-bold"> Guard Management System</h1>
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+      </link>
+      <div className="px-6 mt-6 box d-flex align-items-center justify-content-between">
+        <div className="header mt-5">
           <h3 className="text-center">
             selamat datang. <name>{name}</name>
           </h3>
         </div>
-        <div>
-          <div className="button btn-danger">DARURAT</div>
+        <div className="header mt-5">
+          <div className="button btn-danger mb-2">DARURAT</div>
         </div>
       </div>
     </>

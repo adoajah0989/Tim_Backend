@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import "bulma/css/bulma.min.css";
+import axios from 'axios';
+import {useHistory} from "react-router-dom";
 
-const AddPatrol = () => {
+const AddPatroli = () => {
   const [title, setTitle] = useState("");
   const [file, setFile] = useState("");
   const [preview, setPreview] = useState("");
-  const navigate = useNavigate();
+  const history = useHistory();
+
 
   const loadImage = (e) => {
     const image = e.target.files[0];
@@ -14,18 +16,18 @@ const AddPatrol = () => {
     setPreview(URL.createObjectURL(image));
   };
 
-  const savePatrol = async (e) => {
+  const savePatroli = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("file", file);
     formData.append("title", title);
     try {
-      await axios.post("http://localhost:5000/formpatrol", formData, {
+      await axios.post("http://localhost:5000/patroli", formData, {
         headers: {
           "Content-type": "multipart/form-data",
         },
       });
-      navigate("/PatrolList");
+      history("/patroli");
     } catch (error) {
       console.log(error);
     }
@@ -34,16 +36,16 @@ const AddPatrol = () => {
   return (
     <div className="columns is-centered mt-5">
       <div className="column is-half">
-        <form onSubmit={savePatrol}>
+        <form onSubmit={savePatroli}>
           <div className="field">
-            <label className="label">Product Name</label>
+            <label className="label">patroli Name</label>
             <div className="control">
               <input
                 type="text"
                 className="input"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="Product Name"
+                placeholder="Nama Temuan"
               />
             </div>
           </div>
@@ -87,4 +89,4 @@ const AddPatrol = () => {
   );
 };
 
-export default AddPatrol;
+export default AddPatroli;

@@ -26,6 +26,12 @@ const PatrolList = () => {
   return (
     <div className="container mt-5">
     <h1>List Form Patrol</h1>
+    <Link
+                  to={`/addpatrol`}
+                  className="button is-info"
+                >
+                  Add Patrol
+                </Link>
       <table className="table is-fullwidth">
         <thead>
           <tr>
