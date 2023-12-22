@@ -61,24 +61,6 @@ const Dashboard = () => {
   };
   return (
     <>
-      <link rel="preconnect" href="https://fonts.googleapis.com"></link>
-      <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-      ></link>
-      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
-      </link>
-      <div className="px-6 mt-6 box d-flex align-items-center justify-content-between">
-        <div className="header mt-5">
-          <h3 className="text-center">
-            selamat datang. <name>{name}</name>
-          </h3>
-        </div>
-        <div className="header mt-5">
-          <div className="button btn-danger mb-2">DARURAT</div>
-        </div>
-      </div>
     </>
   );
 };

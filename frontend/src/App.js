@@ -8,46 +8,49 @@ import AddPatroli from "./components/AddPatroli";
 import Sevenbox from "./components/sevenbox";
 import GuestView from "./components/GuestView";
 import EditPatroli from "./components/EditPatroli";
+import Footer from "./components/footer";
+
+
 
 function App() {
   return (
     <div>
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/">
-          <Login/>
-        </Route>
-        <Route path="/register">
-          <Register/>
-        </Route>
-        <Route path="/dashboard">
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/">
+            <Login />
+          </Route>
+          <Route path="/register">
+            <Register />
+          </Route>
+          <Route path="/dashboard">
             <>
-              <Navbar/>
+              <Navbar />
               <Dashboard />
               <Sevenbox />
-            </>
-          </Route>
-          
-        <Route path="/patroli">
-        <PatroliList/>
-        </Route>
-
-        <Route path="/tamu">
-          <>
-            <Navbar />
-            <GuestView />
+              <Footer/>
             </>
           </Route>
 
-        <Route path="patroli/add">
-        <AddPatroli/>
-        </Route>
-        <Route path="edit/:id">
-        <EditPatroli/>
-        </Route>
-        
-      </Switch>
-    </BrowserRouter>
+          <Route path="/patroli">
+            <PatroliList />
+          </Route>
+
+          <Route path="/tamu">
+            <>
+              <Navbar />
+              <GuestView />
+            </>
+          </Route>
+
+          <Route path="patroli/add">
+            <AddPatroli />
+          </Route>
+          <Route path="edit/:id">
+            <EditPatroli />
+          </Route>
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }

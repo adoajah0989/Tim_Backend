@@ -3,26 +3,32 @@ import db from "../config/Database.js";
  
 const { DataTypes } = Sequelize;
  
-const Patroli = db.define('patroli',{
+const Mutasi = db.define('mutasi',{
     tanggal:{
         type: DataTypes.STRING
     },
-    lokasi:{
+    shift:{
         type: DataTypes.STRING
     },
-    urai_temuan:{
+    anggota_1:{
+        type: DataTypes.STRING
+    },
+    anggota_2:{
+        type: DataTypes.STRING
+    },
+    anggota_3:{
+        type: DataTypes.STRING
+    },
+    kegiatan_1:{
         type: DataTypes.TEXT
     },
-    url1:{
-        type: DataTypes.STRING
-    },
-    url2:{
-        type: DataTypes.STRING
-    },
-    tindak:{
+    kegiatan_2:{
         type: DataTypes.TEXT
     },
-    status:{
+    danru_a:{
+        type: DataTypes.STRING
+    },
+    danru_b:{
         type: DataTypes.STRING
     }
 },{
@@ -33,4 +39,4 @@ const Patroli = db.define('patroli',{
     await db.sync();
 })();
  
-export default Patroli;
+export default Mutasi;

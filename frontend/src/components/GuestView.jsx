@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
+import { startOfMonth } from 'date-fns';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const GuestView = () => {
   const [guests, setGuests] = useState([]);
@@ -24,16 +26,7 @@ const GuestView = () => {
 
   const getGuests = async () => {
     try {
-      let url = `http://localhost:5000/guests?search_query=${keyword}&page=${page}&limit=${limit}`;
-
-      // Periksa apakah startDate dan endDate diisi
-      if (startDate) {
-        url += `&startDate=${startDate}`;
-      }
-      if (endDate) {
-        url += `&endDate=${endDate}`;
-      }
-
+      let url = `http://localhost:5000/guests?search_query=${keyword}&page=${page}&limit=${limit}&startDate=${startDate}&endDate=${endDate}`;
       const response = await axios.get(url);
       setGuests(response.data.result);
       setPage(response.data.page);
@@ -60,13 +53,6 @@ const GuestView = () => {
     setPage(0);
     setMsg("");
     setKeyword(query);
-    if (!startDate) {
-      setStartDate("");
-    }
-    if (!endDate) {
-      setEndDate("");
-    }
-    getGuests();
   };
 
   const handleDeleteGuest = async (id) => {
@@ -79,35 +65,15 @@ const GuestView = () => {
       console.error("Error deleting guest:", error.message);
     }
   };
-
+  useEffect(() => {
+    getGuests();
+  }, [startDate, endDate]);
   return (
     <div className="container mt-5">
     <div className="columns">
       <div className="column is-centered">
-        <form className="mt-6" onSubmit={searchData}>
-        <div className="field">
-    <label className="label">Filter Tanggal:</label>
-    <div className="control">
-      <div className="field has-addons">
-        <div className="control">
-          <input
-            type="date"
-            className="input"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-          />
-        </div>
-        <div className="control">
-          <input
-            type="date"
-            className="input"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-          />
-        </div>
-      </div>
-    </div>
-  </div>
+        <form className="mt-4" onSubmit={searchData}>
+        <label className="mt-2 is-size-2">List Tamu</label>
           <div className="field has-addons">
             <div className="control is-expanded">
               <input
@@ -118,6 +84,28 @@ const GuestView = () => {
                 placeholder="Find something here..."
               />
             </div>
+            <div className="field">
+                 <div className="control">
+                    <div className="field has-addons">
+                       <div className="control">
+                          <input
+                               type="date"
+                               className="input"
+                               value={startDate}
+                               onChange={(e) => setStartDate(e.target.value)}
+                           />
+                        </div>
+                          <div className="control">
+                            <input
+                              type="date"
+                              className="input"
+                              value={endDate}
+                              onChange={(e) => setEndDate(e.target.value)}
+                            />
+                          </div>
+                   </div>
+                 </div>
+           </div>
             <div className="control">
               <button type="submit" className="button is-info">
                 Search

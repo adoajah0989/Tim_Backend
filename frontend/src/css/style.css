@@ -1,6 +1,12 @@
 body,.d-flex, .header, .box, .column p {
     font-family: 'poppins', sans-serif;
   }
+.menu{
+  padding: 20px;
+}
+  .info,.navbar{
+    background-color: #33A1FD;
+  }
   
   /* Pengaturan font-weight yang berbeda */
   .d-flex, .box, .column p {
@@ -27,7 +33,10 @@ body,.d-flex, .header, .box, .column p {
   .colored-img {
     filter: invert(1) hue-rotate(180deg);
   }
-  
+  .image {
+    width: 200px; /* Ubah ukuran sesuai kebutuhan */
+    height: 200px; /* Ubah ukuran sesuai kebutuhan */
+  }
   .gradient-custom {
     /* fallback for old browsers */
     /* background: #6a11cb; */
@@ -65,7 +74,8 @@ body,.d-flex, .header, .box, .column p {
   /* Gaya tambahan untuk memberikan efek hover pada teks */
   
   /* Tambahkan ini ke dalam file style.css */
-  .text-link {
+  .text-link, .navbar-item, .navbar-link, .navbar-end{
+    color: rgb(255, 255, 255);
     text-decoration: none; /* Menonaktifkan garis bawah pada tautan */
   }
   
