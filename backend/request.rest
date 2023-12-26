@@ -23,17 +23,16 @@ Content-Type: application/json
 }
 
 ###FUNGSI REFRESH TOKEN DATA USERS (TABLE USER)
-GET http://localhost:5000/token
+GET http://localhost:5000/bap
 
 ###FUNGSI LOGOUT DATA USERS (TABLE USER)
-DELETE http://localhost:5000/patroli/1
+get http://localhost:5000/patroli
 
 
 
 
 ##############FUNGSI SELECT * FROM DATA GUEST (TABLE TAMU)
-get http://localhost:5000/patroli
-
+get http://localhost:5000/lapdi
 ######FUNGSI SELECT DATA GUEST DENGAN ID(TABLE TAMU)
 GET http://localhost:5000/guests
 

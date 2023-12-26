@@ -25,8 +25,9 @@ import { uploadLapdi, createLapdi, getLapdi,deleteLapdi } from "../controllers/L
 import { LoginAtasan, getAtasan } from "../controllers/Atasan.js";
 import { createLKM } from "../controllers/LKM.js";
 import { createBarcode } from "../controllers/Barcode.js";
-import { createBAP } from "../controllers/BAP.js";
+import { createBAP, deleteBAP, getBap } from "../controllers/BAP.js";
 import { getMutasi, getMutasiById, handleDeleteMutasi } from "../controllers/bukuMutasi.js";
+import { getDarurat } from "../controllers/darurat.js";
 const router = express.Router();
 
 // Metode GET
@@ -40,6 +41,8 @@ router.get("/guests/:id", getGuestById);
 router.get("/lapdi",getLapdi);
 router.get("/mutasi",getMutasi);
 router.get("/mutasi/:id",getMutasiById);
+router.get("/bap",getBap);
+router.get("/darurat",getDarurat);
 // Metode POST
 router.post("/users", Register);
 router.post("/login", Login);
@@ -63,6 +66,7 @@ router.get('/patroli/:id', getPatroliById);
 router.post('/patroli', savePatroli);
 router.patch('/patroli/:id', updatePatroli);
 router.delete('/patroli/:id', deletePatroli);
+router.delete('/bap/:id', deleteBAP);
 router.delete('/mutasi/:id', handleDeleteMutasi);
 
 // Metode PUT/PATCH

@@ -12,6 +12,8 @@ import Footer from "./components/footer";
 import LapdiView from "./components/LabdiView";
 import LapdiForm from "./components/lapdiForm";
 import MutasiView from "./components/mutasiView";
+import BAPList from "./components/BAPList";
+import Darurat from "./components/darurat";
 
 
 function App() {
@@ -76,6 +78,18 @@ function App() {
             <>
             <Navbar/>
             <MutasiView/>
+            </>
+          </Route>
+          <Route path="/bap">
+            <>
+            <Navbar/>
+            <BAPList/>
+            </>
+          </Route>
+          <Route path="/darurat">
+          <>
+          <Navbar/>
+            <Darurat/>
             </>
           </Route>
         </Switch>

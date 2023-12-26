@@ -84,3 +84,11 @@ body,.d-flex, .header, .box, .column p {
   .text-link:hover {
     text-decoration: none;
   }
+
+  .card{
+    height: 80%;
+    max-width: 60%;
+  }
+  .dx{
+    margin-top: 50px;
+  }

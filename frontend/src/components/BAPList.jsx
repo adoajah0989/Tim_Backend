@@ -3,47 +3,33 @@ import axios from "axios";
 import ReactPaginate from "react-paginate";
 import { startOfMonth } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
-import Sidebar from "./sidebar";
-import "../css/style.css";
 
-const MutasiView = () => {
-  const [mutasi, setMutasi] = useState([]);
+const BAPList = () => {
+  const [BAP, setBAP] = useState([]);
   const [page, setPage] = useState(0);
   const [limit, setLimit] = useState(10);
   const [pages, setPages] = useState(0);
   const [rows, setRows] = useState(0);
-  const [keyword, setKeyword] = useState("");
   const [query, setQuery] = useState("");
-  const [msg, setMsg] = useState("");
-
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [msg, setMsg] = useState("");
 
-  const getMutasi = async () => {
+  useEffect(() => {
+    getBAP();
+  }, [page, query, startDate, endDate]);
+
+  const getBAP = async () => {
     try {
-      let url = `http://localhost:5000/mutasi?search_query=${keyword}&page=${page}&limit=${limit}&startDate=${startDate}&endDate=${endDate}`;
-      const response = await axios.get(url);
-      setMutasi(response.data.result);
+      const response = await axios.get(
+        `http://localhost:5000/bap?search_query=${query}&page=${page}&limit=${limit}&startDate=${startDate}&endDate=${endDate}`
+      );
+      setBAP(response.data.result);
       setPage(response.data.page);
       setPages(response.data.totalPage);
       setRows(response.data.totalRows);
     } catch (error) {
-      console.error("Error fetching guests:", error.message);
-    }
-  };
-
-  useEffect(() => {
-    getMutasi();
-  }, [page, keyword, startDate, endDate]); // useEffect dijalankan sekali saat komponen dipasang
-
-  const handleDeleteMutasi = async (id) => {
-    try {
-      // Lakukan permintaan DELETE ke endpoint /guests/:id
-      await axios.delete(`http://localhost:5000/mutasi/${id}`);
-      // Refresh data setelah penghapusan
-      getMutasi();
-    } catch (error) {
-      console.error("Error deleting mutasi:", error.message);
+      console.error("Error fetching BAP:", error.message);
     }
   };
 
@@ -51,7 +37,7 @@ const MutasiView = () => {
     setPage(selected);
     if (selected === 9) {
       setMsg(
-        "Jika tidak menemukan data yang Anda cari, silahkan cari data dengan kata kunci spesifik!"
+        "If you don't find the data you're looking for, try searching with a specific keyword!"
       );
     } else {
       setMsg("");
@@ -62,21 +48,26 @@ const MutasiView = () => {
     e.preventDefault();
     setPage(0);
     setMsg("");
-    setKeyword(query);
-    getMutasi(startDate, endDate);
+    getBAP();
   };
-  useEffect(() => {
-    getMutasi();
-  }, [page, keyword, startDate, endDate]);
+
+  const handleDeleteBAP = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/bap/${id}`);
+      getBAP();
+    } catch (error) {
+      console.error("Error deleting BAP:", error.message);
+    }
+  };
+
   return (
     <div className="container mt-5">
       <div className="columns">
-      <div id="sidebox" className="d-flex mt-5">
-      </div>
-        {/* Right Column - Table */}
-        <div className="column">
+        <div className="column is-centered">
           <form className="mt-4" onSubmit={searchData}>
-            <label className="mt-5 mb-3 is-size-2">List Mutasi</label>
+            <label className="mt-5 mb-3 is-size-2 has-text-weight-bold">
+              List BAP
+            </label>
             <div className="field has-addons">
               <div className="control is-expanded">
                 <input
@@ -116,43 +107,51 @@ const MutasiView = () => {
               </div>
             </div>
           </form>
-          <table className="table is-striped is-bordered is-fullwidth mt-2">
+          <table className="table is-striped is-bordered is-fullwidth mt-2 is-size-7">
             <thead>
               <tr>
-                <th>ID</th>
                 <th>Tanggal</th>
-                <th>Shift</th>
-                <th>anggota 1</th>
-                <th>anggota 2</th>
-                <th>anggota 3</th>
-                <th>kegiatan 1</th>
-                <th>kegiatan 2</th>
-                <th>danru A</th>
-                <th>danru B</th>
-                <th>action</th>
+                <th>Jam</th>
+                <th>Pemeriksa</th>
+                <th>Diperiksa</th>
+                <th>TTL</th>
+                <th>Pekerjaan</th>
+                <th>Alamat</th>
+                <th>KTP</th>
+                <th>HP</th>
+                <th>Pertanyaan</th>
+                <th>Action</th>
               </tr>
             </thead>
 
             <tbody>
-              {mutasi.map((mutasi) => (
-                <tr key={mutasi.id}>
-                  <td>{mutasi.id}</td>
+              {BAP.map((bap) => (
+                <tr key={bap.id}>
                   <td>
-                    {mutasi.formattedTanggal &&
-                      mutasi.formattedTanggal.split(" ").join("-")}
+                    {bap.formattedTanggal &&
+                      bap.formattedTanggal.split(" ").join("-")}
                   </td>
-                  <td>{mutasi.shift}</td>
-                  <td>{mutasi.anggota_1}</td>
-                  <td>{mutasi.anggota_2}</td>
-                  <td>{mutasi.anggota_3}</td>
-                  <td>{mutasi.kegiatan_1}</td>
-                  <td>{mutasi.kegiatan_2}</td>
-                  <td>{mutasi.danru_a}</td>
-                  <td>{mutasi.danru_b}</td>
+                  <td>{bap.jam}</td>
+                  <td>{bap.pemeriksa}</td>
+                  <td>{bap.diperiksa}</td>
+                  <td>{bap.ttl}</td>
+                  <td>{bap.pekerjaan}</td>
+                  <td>{bap.alamat}</td>
+                  <td>{bap.ktp}</td>
+                  <td>{bap.hp}</td>
+                  <td>
+                    <ul>
+                      <li>{bap.pertanyaan1}</li>
+                      <li>{bap.pertanyaan2}</li>
+                      <li>{bap.pertanyaan3}</li>
+                      <li>{bap.pertanyaan4}</li>
+                      <li>{bap.pertanyaan5}</li>
+                    </ul>
+                  </td>
                   <td>
                     <button
                       className="btn btn-danger btn-sm"
-                      onClick={() => handleDeleteMutasi(mutasi.id)}
+                      onClick={() => handleDeleteBAP(bap.id)}
                     >
                       Delete
                     </button>
@@ -190,4 +189,4 @@ const MutasiView = () => {
   );
 };
 
-export default MutasiView;
+export default BAPList;
