@@ -15,6 +15,9 @@ export const Navbar = () => {
       console.log(error);
     }
   };
+  const text ={
+    color:"grey",
+  };
 
   return (
     <nav
@@ -26,8 +29,8 @@ export const Navbar = () => {
       <div className="navbar-brand">
         <NavLink to="/dashboard" className="ml-5">
           <img
-            width="64"
-            height="64"
+            width="40"
+            height="40"
             src="https://img.icons8.com/dusk/64/shield.png"
             alt="shield"
           />
@@ -36,7 +39,7 @@ export const Navbar = () => {
       </div>
 
       <div id="navbarBasicExample" className="navbar-menu">
-        <div className="field mt-3 font-monospace">
+        <div className="field mt-2 font-monospace">
           <label className="label has-text-justified has-text-white is-size-4">
             Guard Management System
           </label>
@@ -48,17 +51,17 @@ export const Navbar = () => {
             <div className="navbar-start">
               <a href="/dashboard" className="navbar-item">
                 Home
-              </a>
+              </a>  
             </div>
 
             <div className="navbar-item has-dropdown is-hoverable">
               <a className="navbar-link is-arrowless">More</a>
 
               <div className="navbar-dropdown">
-                <a className="navbar-item">About</a>
+                <a className="navbar-item" style={text}>About</a>
 
                 <hr className="navbar-divider" />
-                <a className="navbar-item">User</a>
+                <a className="navbar-item" style={text}>User</a>
               </div>
             </div>
             <div className="buttons">

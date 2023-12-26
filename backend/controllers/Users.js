@@ -82,3 +82,20 @@ export const Logout = async(req, res) => {
     res.clearCookie('refreshToken');
     return res.sendStatus(200);
 }
+export const getDropdownOptions = async (req, res) => {
+    try {
+      const users = await Users.findAll({
+        attributes: ['name'],
+      });
+  
+      const dropdownOptions = users.map((user) => ({
+        label: user.name,
+        value: user.name,
+      }));
+  
+      res.json(dropdownOptions);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Server error' });
+    }
+  };

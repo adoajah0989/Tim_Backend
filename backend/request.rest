@@ -26,16 +26,16 @@ Content-Type: application/json
 GET http://localhost:5000/token
 
 ###FUNGSI LOGOUT DATA USERS (TABLE USER)
-DELETE http://localhost:5000/logout
+DELETE http://localhost:5000/patroli/1
 
 
 
 
 ##############FUNGSI SELECT * FROM DATA GUEST (TABLE TAMU)
-GET http://localhost:5000/guests
+get http://localhost:5000/patroli
 
 ######FUNGSI SELECT DATA GUEST DENGAN ID(TABLE TAMU)
-GET http://localhost:5000/guests/16
+GET http://localhost:5000/guests
 
 ######FUNGSI INSERT DATA GUEST (TABLE TAMU)
 POST  http://localhost:5000/guests

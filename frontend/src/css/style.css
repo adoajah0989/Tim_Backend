@@ -3,9 +3,9 @@ body,.d-flex, .header, .box, .column p {
   }
 .menu{
   padding: 20px;
-}
+} 
   .info,.navbar{
-    background-color: #33A1FD;
+    background-color: #007BA7;
   }
   
   /* Pengaturan font-weight yang berbeda */
@@ -18,24 +18,25 @@ body,.d-flex, .header, .box, .column p {
   }
   
   .column p {
-    font-size: larger;
+    font-size:medium;
+    margin-bottom: 25px;
   }
   
   .col-md-4 {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
   
   .larger-box{
-    width: 90%;
-    height: 90%;
+    width: 80%;
+    height: 80%;
   }
   
   .colored-img {
     filter: invert(1) hue-rotate(180deg);
   }
   .image {
-    width: 200px; /* Ubah ukuran sesuai kebutuhan */
-    height: 200px; /* Ubah ukuran sesuai kebutuhan */
+    width: 100px; /* Ubah ukuran sesuai kebutuhan */
+    height: 100px; /* Ubah ukuran sesuai kebutuhan */
   }
   .gradient-custom {
     /* fallback for old browsers */

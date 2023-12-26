@@ -5,6 +5,7 @@ import { startOfMonth } from 'date-fns';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const GuestView = () => {
+  
   const [guests, setGuests] = useState([]);
   const [page, setPage] = useState(0);
   const [limit, setLimit] = useState(10);
@@ -73,7 +74,7 @@ const GuestView = () => {
     <div className="columns">
       <div className="column is-centered">
         <form className="mt-4" onSubmit={searchData}>
-        <label className="mt-2 is-size-2">List Tamu</label>
+        <label className="mt-5 mb-3 is-size-2">List Tamu</label>
           <div className="field has-addons">
             <div className="control is-expanded">
               <input
@@ -113,7 +114,7 @@ const GuestView = () => {
             </div>
           </div>
         </form>
-        <table className="table is-striped is-bordered is-fullwidth mt-2">
+        <table className="table is-striped is-bordered is-fullwidth mt-2 is-size-7">
           <thead>
           <tr>
             <th>ID</th>
@@ -133,7 +134,7 @@ const GuestView = () => {
           {guests.map((guest) => (
             <tr key={guest.id}>
               <td>{guest.id}</td>
-              <td>{guest.tanggal}</td>
+              <td>{guest.formattedTanggal && guest.formattedTanggal.split(' ').join('-')}</td>
               <td>{guest.nama}</td>
               <td>{guest.alamat}</td>
               <td>{guest.orang_yang_dituju}</td>

@@ -1,22 +1,29 @@
 import React from "react";
 import "../css/style.css";
+import Footer from "./footer";
 
 const sevenBox = () => {
   const img = {
     filter: "invert(1) hue-rotate(180deg)",
   };
+  const boxColor = {
+    background: "#007BA7",
+  };
+  const darurat = {
+    background: "#ff0000",
+  };
   return (
-    <box id="" className="p-6">
+    <box id="" className="p-2">
       <link
         rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
       />
-      <div className="d-flex col pt-6 mt-5">
+      <div className="d-flex col pt-3 mt-2">
         <div id="kolom-kiri" className="column">
           <div className="containercolumn rounded-3">
             <div className="row">
               <div className="rounder-3 text-light">
-              <img src="undraw_React_re_g3ui.png" alt="" srcset="" />
+                <img src="undraw_React_re_g3ui.png" alt="" srcset="" />
               </div>
               {/* Kolom Kiri */}
             </div>
@@ -29,11 +36,12 @@ const sevenBox = () => {
               <div className="col-md-4">
                 <a
                   href="/tamu"
-                  className="button box m-auto larger-box icon-square is-info text-link"
+                  className="button box m-auto larger-box icon-square text-link"
+                  style={boxColor}
                 >
                   <img
-                    width="100"
-                    height="100"
+                    width="80"
+                    height="80"
                     src="https://img.icons8.com/sf-regular/100/user-group-man-man.png"
                     alt="user-group-man-man"
                     style={img}
@@ -46,17 +54,18 @@ const sevenBox = () => {
               <div className="col-md-4">
                 <a
                   href="/patroli"
-                  className="button box m-auto larger-box icon-square is-info text-link"
+                  className="button box m-auto larger-box icon-square text-link"
+                  style={boxColor}
                 >
                   <img
                     className="p-2"
-                    width="100"
-                    height="100"
+                    width="80"
+                    height="80"
                     src="https://img.icons8.com/material-outlined/100/refresh--v1.png"
                     alt="refresh--v1"
                     style={img}
                   />
-                  <p className="text-inside-box">In Out</p>
+                  <p className="text-inside-box has-text-white">In Out</p>
                 </a>
               </div>
 
@@ -64,16 +73,17 @@ const sevenBox = () => {
               <div className="col-md-4">
                 <a
                   href="/mutasi"
-                  className="button box m-auto larger-box icon-square is-info text-link"
+                  className="button box m-auto larger-box icon-square text-link"
+                  style={boxColor}
                 >
                   <img
-                    width="100"
-                    height="100"
+                    width="80"
+                    height="80"
                     src="https://img.icons8.com/material-outlined/100/data-in-both-directions.png"
                     alt="data-in-both-directions"
                     style={img}
                   />
-                  <p className="text-inside-box">Mutasi</p>
+                  <p className="text-inside-box has-text-white">Mutasi</p>
                 </a>
               </div>
 
@@ -81,80 +91,110 @@ const sevenBox = () => {
               <div className="col-md-4">
                 <a
                   href="/patroli"
-                  className="button box m-auto larger-box icon-square is-info text-link"
+                  className="button box m-auto larger-box icon-square text-link"
+                  style={boxColor}
                 >
                   <img
-                    width="100"
-                    height="100"
+                    width="80"
+                    height="80"
                     src="https://img.icons8.com/windows/100/policeman-male--v1.png"
                     alt="policeman-male--v1"
                     style={img}
                   />
-                  <p className="text-inside-box">Patrol</p>
+                  <p className="text-inside-box has-text-white">Patrol</p>
                 </a>
               </div>
 
               {/* Kotak 5 */}
               <div className="col-md-4">
-                <a className="button box m-auto larger-box icon-square is-info text-link">
+                <a
+                  href="/lapdi"
+                  className="button box m-auto larger-box icon-square text-link"
+                  style={boxColor}
+                >
                   <img
-                    width="100"
-                    height="100"
+                    width="80"
+                    height="80"
                     src="https://img.icons8.com/ios/100/health-graph.png"
                     alt="health-graph"
                     style={img}
                   />
-                  <p className="text-inside-box">Lapdi</p>
+                  <p className="text-inside-box has-text-white">Lapdi</p>
                 </a>
               </div>
 
               {/* Kotak 6 */}
               <div className="col-md-4">
-                <a className="button box m-auto larger-box icon-square is-info text-link">
+                <a
+                  className="button box m-auto larger-box icon-square text-link"
+                  style={boxColor}
+                >
                   <img
-                    width="100"
-                    height="100"
+                    width="80"
+                    height="80"
                     src="https://img.icons8.com/ios/100/task.png"
                     alt="task"
                     style={img}
                   />
-                  <p className="text-inside-box">B.A.P</p>
+                  <p className="text-inside-box has-text-white">B.A.P</p>
                 </a>
               </div>
               <div className="col-md-4">
                 <a
                   href="/ASSET"
-                  className="button box m-auto larger-box icon-square is-info text-link"
+                  className="button box m-auto larger-box icon-square text-link"
+                  style={boxColor}
                 >
                   <img
-                    width="100"
-                    height="100"
+                    width="80"
+                    height="80"
                     src="https://img.icons8.com/material-outlined/100/delivery.png"
                     alt="delivery"
                     style={img}
                   />
 
-                  <p className="text-inside-box">B.Expedisi</p>
+                  <p className="text-inside-box has-text-white">B.Expedisi</p>
                 </a>
               </div>
 
               {/* Kotak 5 */}
               <div className="col-md-4">
-                <a className="button box m-auto larger-box icon-square is-info text-link">
+                <a
+                  className="button box m-auto larger-box icon-square text-link"
+                  style={boxColor}
+                >
                   <img
-                    width="100"
-                    height="100"
+                    width="80"
+                    height="80"
                     src="https://img.icons8.com/material-outlined/100/company-assets-.png"
                     alt="company-assets-"
                     style={img}
                   />
-                  <p className="text-inside-box">Asset</p>
+                  <p className="text-inside-box has-text-white">Asset</p>
+                </a>
+              </div>
+              <div className="col-md-4">
+                <a
+                  href="/darurat"
+                  className="button box m-auto larger-box icon-square text-link"
+                  style={darurat}
+                >
+                  <img
+                    width="80"
+                    height="80"
+                    src="https://img.icons8.com/ios-glyphs/90/error--v1.png"
+                    alt="error--v1"
+                    style={img}
+                  />
+
+                  <p className="text-inside-box has-text-white">Darurat</p>
                 </a>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <Footer />
     </box>
   );
 };

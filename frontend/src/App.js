@@ -9,7 +9,9 @@ import Sevenbox from "./components/sevenbox";
 import GuestView from "./components/GuestView";
 import EditPatroli from "./components/EditPatroli";
 import Footer from "./components/footer";
-
+import LapdiView from "./components/LabdiView";
+import LapdiForm from "./components/lapdiForm";
+import MutasiView from "./components/mutasiView";
 
 
 function App() {
@@ -25,15 +27,24 @@ function App() {
           </Route>
           <Route path="/dashboard">
             <>
+            <div className="container d-flex">
+              <div className="row-cols-2">
+                <label>test</label>
+              </div>
+            </div>
               <Navbar />
               <Dashboard />
               <Sevenbox />
-              <Footer/>
             </>
           </Route>
 
+
           <Route path="/patroli">
+            <>
+
+            <Navbar/>
             <PatroliList />
+            </>
           </Route>
 
           <Route path="/tamu">
@@ -42,12 +53,30 @@ function App() {
               <GuestView />
             </>
           </Route>
+          <Route path="/lapdi">
+            <>
+              <LapdiView />
+            </>
+          </Route>
 
           <Route path="patroli/add">
             <AddPatroli />
           </Route>
           <Route path="edit/:id">
             <EditPatroli />
+          </Route>
+          <Route path="/lapdiForm">
+          <>
+            {/* <Navbar /> */}
+            <LapdiForm/>
+            </>
+          </Route>
+          
+          <Route path="/mutasi">
+            <>
+            <Navbar/>
+            <MutasiView/>
+            </>
           </Route>
         </Switch>
       </BrowserRouter>
