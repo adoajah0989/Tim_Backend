@@ -142,7 +142,7 @@ const sevenBox = () => {
               </div>
               <div className="col-md-4">
                 <a
-                  href="/ASSET"
+                  href="/ekspedisi"
                   className="button box m-auto larger-box icon-square text-link"
                   style={boxColor}
                 >

@@ -14,6 +14,7 @@ import LapdiForm from "./components/lapdiForm";
 import MutasiView from "./components/mutasiView";
 import BAPList from "./components/BAPList";
 import Darurat from "./components/darurat";
+import ExpedisiView from "./components/ExpedisiView";
 
 
 function App() {
@@ -90,6 +91,12 @@ function App() {
           <>
           <Navbar/>
             <Darurat/>
+            </>
+          </Route>
+          <Route path="/ekspedisi">
+          <>
+          <Navbar/>
+            <ExpedisiView/>
             </>
           </Route>
         </Switch>

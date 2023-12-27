@@ -28,6 +28,7 @@ import { createBarcode } from "../controllers/Barcode.js";
 import { createBAP, deleteBAP, getBap } from "../controllers/BAP.js";
 import { getMutasi, getMutasiById, handleDeleteMutasi } from "../controllers/bukuMutasi.js";
 import { getDarurat } from "../controllers/darurat.js";
+import { getExpedisi, getExpedisiById } from "../controllers/Expedisi.js";
 const router = express.Router();
 
 // Metode GET
@@ -43,6 +44,8 @@ router.get("/mutasi",getMutasi);
 router.get("/mutasi/:id",getMutasiById);
 router.get("/bap",getBap);
 router.get("/darurat",getDarurat);
+router.get("/ekspedisi",getExpedisi);
+router.get("/ekspedisi/:id",getExpedisiById);
 // Metode POST
 router.post("/users", Register);
 router.post("/login", Login);
