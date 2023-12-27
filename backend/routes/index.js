@@ -19,16 +19,31 @@ import {
   savePatroli,
   deletePatroli,
   getPatroliQ,
-} from "../controllers/patroli.js";
-import { handleUpload, uploadPhotos } from "../controllers/Asset.js";
+} from "../controllers/Patroli.js";
+import {
+  createExpedisi,
+  updateExpedisi,
+  uploadPhotoExpedisi,
+  getExpedisi,
+  getExpedisiById,
+  saveExpedisi,
+  deleteExpedisi,
+  getExpedisiQ,
+} from "../controllers/Expedisi.js";
+import { 
+  handleUpload, 
+  uploadPhotos, 
+  getAsset,
+  getAssetById,
+  saveAsset,
+  deleteAsset,
+  getAssetQ, createAsset } from "../controllers/Asset.js";
 import { uploadLapdi, createLapdi, getLapdi,deleteLapdi } from "../controllers/Lapdi.js";
 import { LoginAtasan, getAtasan } from "../controllers/Atasan.js";
 import { createLKM } from "../controllers/LKM.js";
 import { createBarcode } from "../controllers/Barcode.js";
-import { createBAP, deleteBAP, getBap } from "../controllers/BAP.js";
+import { createBAP } from "../controllers/BAP.js";
 import { getMutasi, getMutasiById, handleDeleteMutasi } from "../controllers/bukuMutasi.js";
-import { getDarurat } from "../controllers/darurat.js";
-import { getExpedisi, getExpedisiById } from "../controllers/Expedisi.js";
 const router = express.Router();
 
 // Metode GET
@@ -42,16 +57,17 @@ router.get("/guests/:id", getGuestById);
 router.get("/lapdi",getLapdi);
 router.get("/mutasi",getMutasi);
 router.get("/mutasi/:id",getMutasiById);
-router.get("/bap",getBap);
-router.get("/darurat",getDarurat);
-router.get("/ekspedisi",getExpedisi);
-router.get("/ekspedisi/:id",getExpedisiById);
+router.get('/expedisi/:id', getExpedisiById);
+router.get('/asset/:id', getAssetById);
+router.get('/expedisi', getExpedisi);
+router.get('/asset', getAsset);
 // Metode POST
 router.post("/users", Register);
 router.post("/login", Login);
 router.post("/guest", updateGuest);
 router.post("/mutasi", updateMutasi);
 router.post("/patroli", uploadPhotoPatroli, createPatroli);
+router.post("/expedisi", uploadPhotoExpedisi, createExpedisi);
 router.post("/upload", uploadPhotos, handleUpload);
 router.post("/lapdi", uploadLapdi, createLapdi);
 router.post("/loginatas", LoginAtasan);
@@ -67,13 +83,17 @@ router.delete('/lapdi/:id', deleteLapdi);
 router.get('/patroli', getPatroli);
 router.get('/patroli/:id', getPatroliById);
 router.post('/patroli', savePatroli);
+router.post('/expedisi', saveExpedisi);
+router.post('/asset', saveAsset);
 router.patch('/patroli/:id', updatePatroli);
+router.patch('/expedisi/:id', updateExpedisi);
 router.delete('/patroli/:id', deletePatroli);
-router.delete('/bap/:id', deleteBAP);
+router.delete('/expedisi/:id', deleteExpedisi);
 router.delete('/mutasi/:id', handleDeleteMutasi);
 
 // Metode PUT/PATCH
 router.put("/patroli/:id", updatePatroli);
+router.put("/expedisi/:id", updateExpedisi);
 router.patch('/guests/:id', updateGuest);
 
 
