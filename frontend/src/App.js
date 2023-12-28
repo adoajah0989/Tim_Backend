@@ -16,6 +16,7 @@ import BAPList from "./components/BAPList";
 import Darurat from "./components/darurat";
 import ExpedisiView from "./components/ExpedisiView";
 import AssetView from "./components/AssetView";
+import AddDarurat from "./components/addDarurat";
 
 
 function App() {
@@ -86,6 +87,12 @@ function App() {
             <>
             <Navbar/>
             <BAPList/>
+            </>
+          </Route>
+          <Route path="/addDarurat">
+            <>
+            <Navbar/>
+            <AddDarurat/>
             </>
           </Route>
           <Route path="/darurat">

@@ -3,7 +3,11 @@ body,.d-flex, .header, .box, .column p {
   }
 .menu{
   padding: 20px;
+}
+.tambah{
+  background-color: #007BA7;
 } 
+
   .info,.navbar{
     background-color: #007BA7;
   }
@@ -92,3 +96,4 @@ body,.d-flex, .header, .box, .column p {
   .dx{
     margin-top: 50px;
   }
+
