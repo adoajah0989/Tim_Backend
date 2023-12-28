@@ -15,6 +15,7 @@ import MutasiView from "./components/mutasiView";
 import BAPList from "./components/BAPList";
 import Darurat from "./components/darurat";
 import ExpedisiView from "./components/ExpedisiView";
+import AssetView from "./components/AssetView";
 
 
 function App() {
@@ -97,6 +98,12 @@ function App() {
           <>
           <Navbar/>
             <ExpedisiView/>
+            </>
+          </Route>
+          <Route path="/asset">
+          <>
+          <Navbar/>
+            <AssetView/>
             </>
           </Route>
         </Switch>

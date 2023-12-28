@@ -4,32 +4,33 @@ import ReactPaginate from "react-paginate";
 import { startOfMonth } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 
-const BAPList = () => {
-  const [BAP, setBAP] = useState([]);
+const AssetView = () => {
+  const [asset, setAsset] = useState([]);
   const [page, setPage] = useState(0);
   const [limit, setLimit] = useState(10);
   const [pages, setPages] = useState(0);
   const [rows, setRows] = useState(0);
+  const [keyword, setKeyword] = useState("");
   const [query, setQuery] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
   const [msg, setMsg] = useState("");
 
-  useEffect(() => {
-    getBAP();
-  }, [page, query, startDate, endDate]);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
-  const getBAP = async () => {
+  useEffect(() => {
+    getAsset();
+  }, [page, keyword, startDate, endDate]); // useEffect dijalankan sekali saat komponen dipasang
+
+  const getAsset = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/bap?search_query=${query}&page=${page}&limit=${limit}&startDate=${startDate}&endDate=${endDate}`
-      );
-      setBAP(response.data.result);
+      let url = `http://localhost:5000/asset?search_query=${keyword}&page=${page}&limit=${limit}&startDate=${startDate}&endDate=${endDate}`;
+      const response = await axios.get(url);
+      setAsset(response.data.result);
       setPage(response.data.page);
       setPages(response.data.totalPage);
       setRows(response.data.totalRows);
     } catch (error) {
-      console.error("Error fetching BAP:", error.message);
+      console.error("Error fetching asset:", error.message);
     }
   };
 
@@ -37,7 +38,7 @@ const BAPList = () => {
     setPage(selected);
     if (selected === 9) {
       setMsg(
-        "If you don't find the data you're looking for, try searching with a specific keyword!"
+        "Jika tidak menemukan data yang Anda cari, silahkan cari data dengan kata kunci spesifik!"
       );
     } else {
       setMsg("");
@@ -48,25 +49,29 @@ const BAPList = () => {
     e.preventDefault();
     setPage(0);
     setMsg("");
-    getBAP();
+    setKeyword(query);
   };
 
-  const handleDeleteBAP = async (id) => {
+  const handleDeleteAsset = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/bap/${id}`);
-      getBAP();
+      // Lakukan permintaan DELETE ke endpoint /guests/:id
+      await axios.delete(`http://localhost:5000/asset/${id}`);
+      // Refresh data setelah penghapusan
+      getAsset();
     } catch (error) {
-      console.error("Error deleting BAP:", error.message);
+      console.error("Error deleting guest:", error.message);
     }
   };
-
+  useEffect(() => {
+    getAsset();
+  }, [startDate, endDate]);
   return (
     <div className="container mt-5">
       <div className="columns">
         <div className="column is-centered">
           <form className="mt-4" onSubmit={searchData}>
             <label className="mt-5 mb-3 is-size-2 has-text-weight-bold">
-              List BAP
+              List Asset
             </label>
             <div className="field has-addons">
               <div className="control is-expanded">
@@ -111,57 +116,63 @@ const BAPList = () => {
             <thead>
               <tr>
                 <th>Tanggal</th>
-                <th>Jam</th>
-                <th>Pemeriksa</th>
-                <th>Diperiksa</th>
-                <th>TTL</th>
-                <th>Pekerjaan</th>
-                <th>Alamat</th>
-                <th>KTP</th>
-                <th>HP</th>
-                <th>Pertanyaan</th>
-                <th>jawaban</th>
+                <th>Waktu</th>
+                <th>Lokasi</th>
+                <th>catatan</th>
+                <th>Image</th>
                 <th>Action</th>
               </tr>
             </thead>
 
             <tbody>
-              {BAP.map((bap) => (
-                <tr key={bap.id}>
+              {asset.map((asset) => (
+                <tr key={asset.id}>
                   <td>
-                    {bap.formattedTanggal &&
-                      bap.formattedTanggal.split(" ").join("-")}
-                  </td>
-                  <td>{bap.jam}</td>
-                  <td>{bap.pemeriksa}</td>
-                  <td>{bap.diperiksa}</td>
-                  <td>{bap.ttl}</td>
-                  <td>{bap.pekerjaan}</td>
-                  <td>{bap.alamat}</td>
-                  <td>{bap.ktp}</td>
-                  <td>{bap.hp}</td>
-                  <td>
-                    <ul>
-                      <li>{bap.pertanyaan1}</li>
-                      <li>{bap.pertanyaan2}</li>
-                      <li>{bap.pertanyaan3}</li>
-                      <li>{bap.pertanyaan4}</li>
-                      <li>{bap.pertanyaan5}</li>
-                    </ul>
+                    {asset.formattedTimestamp &&
+                      asset.formattedTimestamp.split(" ").join("-")}
                   </td>
                   <td>
-                    <ul>
-                      <li>{bap.jawaban1}</li>
-                      <li>{bap.jawaban2}</li>
-                      <li>{bap.jawaban3}</li>
-                      <li>{bap.jawaban4}</li>
-                      <li>{bap.jawaban5}</li>
-                    </ul>
+                    {asset.timestamp &&
+                      asset.timestamp.split(" ")[1]}{" "}
+                    {/* Menampilkan bagian jam */}
                   </td>
+                  <td>
+                    <p className="title is-7">{asset.lokasi}</p>
+                  </td>
+                  <td>{asset.catatan}</td>
+                  <td>
+                    <a
+                      href={asset.url1}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <button className="border-0">
+                        <img
+                          src={asset.url1}
+                          alt="Image"
+                          style={{ maxWidth: "100px", maxHeight: "100px" }}
+                        />
+                      </button>
+                    </a>
+                    <a
+                      href={asset.url2}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <button className="border-0">
+                        <img
+                          src={asset.url2}
+                          alt="Image"
+                          style={{ maxWidth: "100px", maxHeight: "100px" }}
+                        />
+                      </button>
+                    </a>
+                  </td>
+
                   <td>
                     <button
                       className="btn btn-danger btn-sm"
-                      onClick={() => handleDeleteBAP(bap.id)}
+                      onClick={() => handleDeleteAsset(asset.id)}
                     >
                       Delete
                     </button>
@@ -199,4 +210,4 @@ const BAPList = () => {
   );
 };
 
-export default BAPList;
+export default AssetView;

@@ -28,7 +28,6 @@ import {
   getExpedisiById,
   saveExpedisi,
   deleteExpedisi,
-  getExpedisiQ,
 } from "../controllers/Expedisi.js";
 import { 
   handleUpload, 
@@ -41,8 +40,9 @@ import {
 import { uploadLapdi, createLapdi, getLapdi,deleteLapdi } from "../controllers/Lapdi.js";
 import { LoginAtasan, getAtasan } from "../controllers/Atasan.js";
 import { createLKM } from "../controllers/LKM.js";
+import { getDarurat } from "../controllers/darurat.js";
 import { createBarcode } from "../controllers/Barcode.js";
-import { createBAP } from "../controllers/BAP.js";
+import { createBAP, deleteBAP, getBap } from "../controllers/BAP.js";
 import { getMutasi, getMutasiById, handleDeleteMutasi } from "../controllers/bukuMutasi.js";
 const router = express.Router();
 
@@ -61,6 +61,10 @@ router.get('/expedisi/:id', getExpedisiById);
 router.get('/asset/:id', getAssetById);
 router.get('/expedisi', getExpedisi);
 router.get('/asset', getAsset);
+router.get("/bap",getBap);
+router.get("/darurat",getDarurat);
+router.get("/ekspedisi",getExpedisi);
+router.get("/ekspedisi/:id",getExpedisiById);
 // Metode POST
 router.post("/users", Register);
 router.post("/login", Login);
@@ -90,6 +94,8 @@ router.patch('/expedisi/:id', updateExpedisi);
 router.delete('/patroli/:id', deletePatroli);
 router.delete('/expedisi/:id', deleteExpedisi);
 router.delete('/mutasi/:id', handleDeleteMutasi);
+router.delete('/expedisi/:id', deleteExpedisi);
+router.delete('/asset/:id', deleteAsset);
 
 // Metode PUT/PATCH
 router.put("/patroli/:id", updatePatroli);

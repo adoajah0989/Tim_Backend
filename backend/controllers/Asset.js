@@ -1,6 +1,6 @@
 import multer from 'multer';
 import path from 'path';
-import fs from 'fs';
+import fs from 'fs-extra';
 import Photo from '../models/AssetModel.js';
 import { Op, literal } from 'sequelize';
 
@@ -204,7 +204,7 @@ export const getAsset = async (req, res) => {
   const result = await Photo.findAll({
       attributes: [
           'id',
-          [literal("DATE_FORMAT(tanggal, '%d %m %Y')"), 'formattedTanggal'],
+          [literal("DATE_FORMAT(Timestamp, '%d %m %Y')"), 'formattedTimestamp'],
           'lokasi',
           'timestamp',
           'url1',
@@ -293,39 +293,46 @@ export const saveAsset = (req, res) => {
 };
 
 export const deleteAsset = async (req, res) => {
-  const asset = await Photo.findOne({
-    where: {
-      id: req.params.id,
-    },
-  });
-
-  if (!asset) {
-    return res.status(404).json({ msg: "No Data Found" });
-  }
-
   try {
-    const imagePath = asset.url1;
+    const asset = await Photo.findByPk(req.params.id);
 
-    if (!imagePath) {
-      return res.status(400).json({ msg: "Image path is undefined" });
+    if (!asset) {
+      return res.status(404).json({ msg: "No Data Found" });
     }
 
-    const filepath = `./public/images/${imagePath}`;
+    const imagePath1 = asset.url1;
+    const imagePath2 = asset.url2;
 
     // Pengecekan apakah file dengan path tersebut ada
-    if (fs.existsSync(filepath)) {
-      fs.unlinkSync(filepath);
+    if (fs.existsSync(imagePath1)) {
+      // Pindahkan file ke folder sampah
+      const trashFolder = path.resolve(__dirname, '../public/trash');
+      if (!fs.existsSync(trashFolder)) {
+        fs.mkdirSync(trashFolder);
+      }
 
-      await Photo.destroy({
-        where: {
-          id: req.params.id,
-        },
-      });
-
-      res.status(200).json({ msg: "Asset Deleted Successfully" });
-    } else {
-      res.status(404).json({ msg: "File not found" });
+      const trashImagePath1 = path.join(trashFolder, path.basename(imagePath1));
+      
+      // Gunakan fs-extra untuk memastikan pemindahan yang andal
+      await fs.move(imagePath1, trashImagePath1);
     }
+
+    if (fs.existsSync(imagePath2)) {
+      // Pindahkan file ke folder sampah
+      const trashFolder = path.resolve(__dirname, '../public/trash');
+      if (!fs.existsSync(trashFolder)) {
+        fs.mkdirSync(trashFolder);
+      }
+
+      const trashImagePath2 = path.join(trashFolder, path.basename(imagePath2));
+      
+      // Gunakan fs-extra untuk memastikan pemindahan yang andal
+      await fs.move(imagePath2, trashImagePath2);
+    }
+
+    await asset.destroy();
+
+    res.status(200).json({ msg: "Asset Deleted Successfully" });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ msg: "Internal Server Error" });

@@ -163,6 +163,7 @@ const sevenBox = () => {
                 <a
                   className="button box m-auto larger-box icon-square text-link"
                   style={boxColor}
+                  href="/asset"
                 >
                   <img
                     width="80"

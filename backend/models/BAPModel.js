@@ -2,9 +2,14 @@ import { Sequelize, DataTypes } from "sequelize";
 import db from "../config/Database.js";
 
 const BAP = db.define('bap', {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
   tanggal: {
-    type: DataTypes.STRING,
-    primaryKey: true,
+    type: DataTypes.DATEONLY,
+    allowNull: false,
   },
   jam: {
     type: DataTypes.STRING
@@ -54,9 +59,28 @@ const BAP = db.define('bap', {
   },
   pertanyaan5: {
     type: DataTypes.STRING
+  },
+  jawaban1: {
+    type: DataTypes.STRING
+  },
+  jawaban2: {
+    type: DataTypes.STRING
+  },
+  jawaban3: {
+    type: DataTypes.STRING
+  },
+  jawaban4: {
+    type: DataTypes.STRING
+  },
+  jawaban5: {
+    type: DataTypes.STRING
   }
 }, {
   freezeTableName: true
 });
+
+(async () => {
+  await db.sync();
+})();
 
 export default BAP;
