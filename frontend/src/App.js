@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar";
 import Dashboard from "./components/Dashboard";
 import PatroliList from "./components/PatroliList";
 import AddPatroli from "./components/AddPatroli";
-import Sevenbox from "./components/sevenbox";
+import Sevenbox from "./components/sevenBox";
 import GuestView from "./components/GuestView";
 import EditPatroli from "./components/EditPatroli";
 import Footer from "./components/footer";
@@ -17,7 +17,7 @@ import Darurat from "./components/darurat";
 import ExpedisiView from "./components/ExpedisiView";
 import AssetView from "./components/AssetView";
 import AddDarurat from "./components/addDarurat";
-import InOutViews from "./components/inOutView";
+
 
 function App() {
   return (
@@ -47,6 +47,13 @@ function App() {
             <>
               <Navbar />
               <PatroliList />
+            </>
+          </Route>
+          <Route path="/inout">
+            <>
+
+            <Navbar/>
+            < InOutViews/>
             </>
           </Route>
 
