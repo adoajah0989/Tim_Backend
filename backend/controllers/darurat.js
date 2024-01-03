@@ -1,54 +1,27 @@
-import Darurat from "../models/daruratModel.js";
+import Darurat from "../models/DaruratModel2.js";
+export const getDaruratByLocation = async (req, res) => {
+  try {
+    const { lokasi } = req.params;
 
-export const getDarurat = async (req, res) => {
-    try {
-      const result = await Darurat.findAll();
-      
-      if (result.length === 0) {
-        // Jika tidak ada data ditemukan
-        res.status(404).json({ message: 'Data not found' });
-      } else {
-        // Jika data ditemukan
-        res.status(200).json(result);
+    const daruratData = await Darurat.findAll({
+      where: { lokasi },
+      raw: true,
+    });
+
+    const result = {};
+    daruratData.forEach((data) => {
+      const { type, nomor } = data;
+
+      if (!result[type]) {
+        result[type] = [];
       }
-    } catch (error) {
-      console.error('Error in getPatroliQ:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
-  };
 
-  export const addDarurat = async (req, res) => {
-    try {
-      // Ambil data dari body request
-      const {
-        lokasi,
-        no_damkar,
-        no_polsek,
-        no_babinKab,
-        no_babinsa,
-        no_instansi,
-        no_pimpinan,
-        no_kodalops,
-        no_it,
-      } = req.body;
-  
-      // Simpan data ke database
-      const newDarurat = await Darurat.create({
-        lokasi,
-        no_damkar,
-        no_polsek,
-        no_babinKab,
-        no_babinsa,
-        no_instansi,
-        no_pimpinan,
-        no_kodalops,
-        no_it,
-      });
-  
-      // Kirim respons sukses ke client
-      res.status(201).json({ message: 'Data successfully added', data: newDarurat });
-    } catch (error) {
-      console.error('Error in addDarurat:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
-  };
+      result[type].push(nomor);
+    });
+
+    res.json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};

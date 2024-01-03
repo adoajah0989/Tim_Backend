@@ -53,7 +53,7 @@ const sevenBox = () => {
               {/* Kotak 2 */}
               <div className="col-md-4">
                 <a
-                  href="/patroli"
+                  href="/inout"
                   className="button box m-auto larger-box icon-square text-link"
                   style={boxColor}
                 >

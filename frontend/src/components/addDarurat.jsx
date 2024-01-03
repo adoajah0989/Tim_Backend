@@ -55,7 +55,6 @@ const AddDarurat = () => {
             });
             
             history.push("/darurat");
-            showNotification('Data berhasil dimasukkan.');
 
           } else {
             console.error('Failed to submit form data');
