@@ -44,6 +44,7 @@ import { addDarurat, getDarurat } from "../controllers/darurat.js";
 import { createBarcode } from "../controllers/Barcode.js";
 import { createBAP, deleteBAP, getBap } from "../controllers/BAP.js";
 import { getMutasi, getMutasiById, handleDeleteMutasi } from "../controllers/bukuMutasi.js";
+import { deleteInOut, getinOut, getinOutById } from "../controllers/InOut.js";
 const router = express.Router();
 
 // Metode GET
@@ -63,8 +64,11 @@ router.get('/expedisi', getExpedisi);
 router.get('/asset', getAsset);
 router.get("/bap",getBap);
 router.get("/darurat",getDarurat);
+router.get("/darurat",getDarurat);
 router.get("/ekspedisi",getExpedisi);
 router.get("/ekspedisi/:id",getExpedisiById);
+router.get("/InOut",getinOut)
+router.get("/InOut/:id",getinOutById)
 // Metode POST
 router.post("/users", Register);
 router.post("/login", Login);
@@ -97,6 +101,7 @@ router.delete('/expedisi/:id', deleteExpedisi);
 router.delete('/mutasi/:id', handleDeleteMutasi);
 router.delete('/expedisi/:id', deleteExpedisi);
 router.delete('/asset/:id', deleteAsset);
+router.delete('/inout/:id', deleteInOut);
 
 // Metode PUT/PATCH
 router.put("/patroli/:id", updatePatroli);

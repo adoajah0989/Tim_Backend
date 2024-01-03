@@ -17,7 +17,7 @@ import Darurat from "./components/darurat";
 import ExpedisiView from "./components/ExpedisiView";
 import AssetView from "./components/AssetView";
 import AddDarurat from "./components/addDarurat";
-
+import InOutViews from "./components/inOutView";
 
 function App() {
   return (
@@ -32,23 +32,21 @@ function App() {
           </Route>
           <Route path="/dashboard">
             <>
-            <div className="container d-flex">
-              <div className="row-cols-2">
-                <label>test</label>
+              <div className="container d-flex">
+                <div className="row-cols-2">
+                  <label>test</label>
+                </div>
               </div>
-            </div>
               <Navbar />
               <Dashboard />
               <Sevenbox />
             </>
           </Route>
 
-
           <Route path="/patroli">
             <>
-
-            <Navbar/>
-            <PatroliList />
+              <Navbar />
+              <PatroliList />
             </>
           </Route>
 
@@ -71,46 +69,52 @@ function App() {
             <EditPatroli />
           </Route>
           <Route path="/lapdiForm">
-          <>
-            {/* <Navbar /> */}
-            <LapdiForm/>
+            <>
+              {/* <Navbar /> */}
+              <LapdiForm />
             </>
           </Route>
-          
+
           <Route path="/mutasi">
             <>
-            <Navbar/>
-            <MutasiView/>
+              <Navbar />
+              <MutasiView />
             </>
           </Route>
           <Route path="/bap">
             <>
-            <Navbar/>
-            <BAPList/>
+              <Navbar />
+              <BAPList />
             </>
           </Route>
           <Route path="/addDarurat">
             <>
-            <Navbar/>
-            <AddDarurat/>
+              <Navbar />
+              <AddDarurat />
             </>
           </Route>
           <Route path="/darurat">
-          <>
-          <Navbar/>
-            <Darurat/>
+            <>
+              <Navbar />
+              <Darurat />
             </>
           </Route>
           <Route path="/ekspedisi">
-          <>
-          <Navbar/>
-            <ExpedisiView/>
+            <>
+              <Navbar />
+              <ExpedisiView />
+            </>
+          </Route>
+          <Route path="/inout">
+            <>
+              <Navbar />
+              <InOutViews />
             </>
           </Route>
           <Route path="/asset">
-          <>
-          <Navbar/>
-            <AssetView/>
+            <>
+              <Navbar />
+              <AssetView />
             </>
           </Route>
         </Switch>
