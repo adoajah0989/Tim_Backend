@@ -63,7 +63,10 @@ router.get('/asset/:id', getAssetById);
 router.get('/expedisi', getExpedisi);
 router.get('/asset', getAsset);
 router.get("/bap",getBap);
+
 router.get("/darurat/:location",getDaruratByLocation);
+
+
 router.get("/ekspedisi",getExpedisi);
 router.get("/ekspedisi/:id",getExpedisiById);
 router.get("/InOut",getinOut)
