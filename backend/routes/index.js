@@ -82,7 +82,7 @@ router.post("/lkm", createLKM);
 router.post("/barcode", createBarcode);
 router.post("/bap", createBAP);
 router.post('/guests', createGuest);
-router.post('/darurat', addDarurat);
+// router.post('/darurat', addDarurat);
 
 // Metode DELETE
 router.delete("/logout", Logout);
