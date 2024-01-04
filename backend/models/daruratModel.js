@@ -4,40 +4,16 @@ import db from "../config/Database.js";
 const Darurat = db.define('darurat', {
   lokasi: {
     type: DataTypes.STRING,
-    primaryKey: true,
+    allowNull:false,
   },
-  no_damkar: {
+  nomor:{
     type: DataTypes.STRING,
-    allowNull: true,
+    allowNull:false,
   },
-  no_polsek: {
+  type:{
     type: DataTypes.STRING,
-    allowNull: true,
-  },
-  no_babinKab: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  no_babinsa: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  no_instansi: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  no_pimpinan: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  no_kodalops: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  no_it: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
+    allowNull:false,
+  }
 }, {
   freezeTableName: true
 });

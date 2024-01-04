@@ -13,10 +13,10 @@ import LapdiView from "./components/LabdiView";
 import LapdiForm from "./components/lapdiForm";
 import MutasiView from "./components/mutasiView";
 import BAPList from "./components/BAPList";
-import Darurat from "./components/darurat";
+import Darurat from "./components/darurat/darurat";
 import ExpedisiView from "./components/ExpedisiView";
 import AssetView from "./components/AssetView";
-import AddDarurat from "./components/addDarurat";
+import AddDarurat from "./components/darurat/addDarurat";
 import InOutViews from "./components/inOutView";
 
 function App() {

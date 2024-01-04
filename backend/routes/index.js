@@ -40,7 +40,7 @@ import {
 import { uploadLapdi, createLapdi, getLapdi,deleteLapdi } from "../controllers/Lapdi.js";
 import { LoginAtasan, getAtasan } from "../controllers/Atasan.js";
 import { createLKM } from "../controllers/LKM.js";
-import { addDarurat, getDarurat } from "../controllers/darurat.js";
+import { addDarurat, editDarurat, getDarurat } from "../controllers/darurat.js";
 import { createBarcode } from "../controllers/Barcode.js";
 import { createBAP, deleteBAP, getBap } from "../controllers/BAP.js";
 import { getMutasi, getMutasiById, handleDeleteMutasi } from "../controllers/bukuMutasi.js";
@@ -63,7 +63,6 @@ router.get('/asset/:id', getAssetById);
 router.get('/expedisi', getExpedisi);
 router.get('/asset', getAsset);
 router.get("/bap",getBap);
-router.get("/darurat",getDarurat);
 router.get("/darurat",getDarurat);
 router.get("/ekspedisi",getExpedisi);
 router.get("/ekspedisi/:id",getExpedisiById);
@@ -106,6 +105,7 @@ router.delete('/inout/:id', deleteInOut);
 // Metode PUT/PATCH
 router.put("/patroli/:id", updatePatroli);
 router.put("/expedisi/:id", updateExpedisi);
+router.put("/darurat/:id", editDarurat);
 router.patch('/guests/:id', updateGuest);
 
 
