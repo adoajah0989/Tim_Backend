@@ -40,7 +40,7 @@ import {
 import { uploadLapdi, createLapdi, getLapdi,deleteLapdi } from "../controllers/Lapdi.js";
 import { LoginAtasan, getAtasan } from "../controllers/Atasan.js";
 import { createLKM } from "../controllers/LKM.js";
-import { addDarurat, getDarurat, getDaruratByLocation } from "../controllers/Darurat.js";
+import { getDaruratByLocation,} from "../controllers/darurat.js";
 import { createBarcode } from "../controllers/Barcode.js";
 import { createBAP, deleteBAP, getBap } from "../controllers/BAP.js";
 import { getMutasi, getMutasiById, handleDeleteMutasi } from "../controllers/bukuMutasi.js";
@@ -82,7 +82,7 @@ router.post("/lkm", createLKM);
 router.post("/barcode", createBarcode);
 router.post("/bap", createBAP);
 router.post('/guests', createGuest);
-router.post('/darurat', addDarurat);
+// router.post('/darurat', addDarurat);
 
 // Metode DELETE
 router.delete("/logout", Logout);

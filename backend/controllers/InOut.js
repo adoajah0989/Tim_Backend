@@ -1,7 +1,7 @@
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
-import InOut from '../models/inOutModel.js';
+import InOut from '../models/InOutModel.js';
 import { Op, literal } from 'sequelize';
 
 const getStoragePath = () => {

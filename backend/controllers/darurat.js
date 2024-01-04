@@ -1,4 +1,5 @@
-import Darurat from "../models/DaruratModel2.js";
+import Darurat from "../models/DaruratModel.js";
+
 export const getDaruratByLocation = async (req, res) => {
   try {
     const { lokasi } = req.params;
