@@ -84,3 +84,24 @@ export const getDarurat = async (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   };
+
+  export const deleteDarurat = async (req, res) => {
+    const { id } = req.params;
+  
+    try {
+      const deletedDarurat = await Darurat.destroy({
+        where: {
+          id: id,
+        },
+      });
+  
+      if (deletedDarurat === 1) {
+        res.json({ message: "Data deleted successfully" });
+      } else {
+        res.status(404).json({ error: "Data not found" });
+      }
+    } catch (error) {
+      console.error("Error deleting darurat:", error.message);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  };

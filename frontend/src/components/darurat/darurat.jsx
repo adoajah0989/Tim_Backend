@@ -136,6 +136,30 @@ const Darurat = () => {
       });
     }
   };
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/darurat/${id}`);
+      setDarurat((prevDarurat) => prevDarurat.filter((item) => item.id !== id));
+      toast.success("Data deleted successfully", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    } catch (error) {
+      console.error("Error deleting data:", error.message);
+      toast.error("Error deleting data", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    }
+  };
 
   return (
     <div className="container mt-5 p-lg-5">
@@ -161,7 +185,7 @@ const Darurat = () => {
       </div>
       <div className="mt-3">
         <div className="mt-3">
-          <table className="table table-bordered table-striped-columns">
+          <table className="table d-sm-table table-bordered table-striped-columns">
             <thead className="table-secondary">
               <tr>
                 <th scope="col">Type</th>
@@ -176,12 +200,18 @@ const Darurat = () => {
                   <td>{darurat.nomor}</td>
                   <td>
                     {/* Tombol Edit */}
-                    <button
-                      className="btn btn-primary"
+                    <Button
+                      variant="primary"
                       onClick={() => handleEditClick(darurat.id)}
                     >
                       Edit
-                    </button>
+                    </Button>{" "}
+                    <Button
+                      variant="danger"
+                      onClick={() => handleDelete(darurat.id)}
+                    >
+                      Delete
+                    </Button>
                   </td>
                 </tr>
               ))}
