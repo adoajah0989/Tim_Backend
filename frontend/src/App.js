@@ -75,12 +75,6 @@ function App() {
           <Route path="edit/:id">
             <EditPatroli />
           </Route>
-          <Route path="/lapdiForm">
-            <>
-              {/* <Navbar /> */}
-              <LapdiForm />
-            </>
-          </Route>
 
           <Route path="/mutasi">
             <>

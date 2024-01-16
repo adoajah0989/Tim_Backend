@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "../css/style.css";
 import ReactPaginate from "react-paginate";
-import { startOfMonth } from 'date-fns';
-import 'react-datepicker/dist/react-datepicker.css';
+import { startOfMonth } from "date-fns";
+import "react-datepicker/dist/react-datepicker.css";
 
 const GuestView = () => {
-  
   const [guests, setGuests] = useState([]);
   const [page, setPage] = useState(0);
   const [limit, setLimit] = useState(10);
@@ -18,10 +18,7 @@ const GuestView = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-
-
   useEffect(() => {
-    
     getGuests();
   }, [page, keyword, startDate, endDate]); // useEffect dijalankan sekali saat komponen dipasang
 
@@ -71,87 +68,94 @@ const GuestView = () => {
   }, [startDate, endDate]);
   return (
     <div className="container mt-5">
-    <div className="columns">
-      <div className="column is-centered">
-        <form className="mt-4" onSubmit={searchData}>
-        <label className="mt-5 mb-3 is-size-2">List Tamu</label>
-          <div className="field has-addons">
-            <div className="control is-expanded">
-              <input
-                type="text"
-                className="input"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Find something here..."
-              />
-            </div>
-            <div className="field">
-                 <div className="control">
-                    <div className="field has-addons">
-                       <div className="control">
-                          <input
-                               type="date"
-                               className="input"
-                               value={startDate}
-                               onChange={(e) => setStartDate(e.target.value)}
-                           />
-                        </div>
-                          <div className="control">
-                            <input
-                              type="date"
-                              className="input"
-                              value={endDate}
-                              onChange={(e) => setEndDate(e.target.value)}
-                            />
-                          </div>
-                   </div>
-                 </div>
-           </div>
-            <div className="control">
-              <button type="submit" className="button is-info">
-                Search
-              </button>
-            </div>
-          </div>
-        </form>
-        <table className="table is-striped is-bordered is-fullwidth mt-2 is-size-7">
-          <thead>
-          <tr>
-            <th>ID</th>
-            <th>Tanggal</th>
-            <th>Nama</th>
-            <th>Alamat</th>
-            <th>Orang yang Dituju</th>
-            <th>Keperluan</th>
-            <th>No Kendaraan</th>
-            <th>No KTP</th>
-            <th>Catatan</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        
-        <tbody>
-          {guests.map((guest) => (
-            <tr key={guest.id}>
-              <td>{guest.id}</td>
-              <td>{guest.formattedTanggal && guest.formattedTanggal.split(' ').join('-')}</td>
-              <td>{guest.nama}</td>
-              <td>{guest.alamat}</td>
-              <td>{guest.orang_yang_dituju}</td>
-              <td>{guest.keperluan}</td>
-              <td>{guest.no_kendaraan}</td>
-              <td>{guest.no_ktp}</td>
-              <td>{guest.catatan}</td>
-              <td>
-                <button className="btn btn-danger btn-sm" onClick={() => handleDeleteGuest(guest.id)}>
-                  Delete
+      <div className="columns">
+        <div className="column is-centered">
+          <form className="mt-4" onSubmit={searchData}>
+            <label className="mt-5 mb-3 is-size-2">List Tamu</label>
+            <div className="field has-addons">
+              <div className="control is-expanded">
+                <input
+                  type="text"
+                  className="input"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Find something here..."
+                />
+              </div>
+              <div className="field">
+                <div className="control">
+                  <div className="field has-addons">
+                    <div className="control">
+                      <input
+                        type="date"
+                        className="input"
+                        value={startDate}
+                        onChange={(e) => setStartDate(e.target.value)}
+                      />
+                    </div>
+                    <div className="control">
+                      <input
+                        type="date"
+                        className="input"
+                        value={endDate}
+                        onChange={(e) => setEndDate(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="control">
+                <button type="submit" className="button is-info">
+                  Search
                 </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <p>
+              </div>
+            </div>
+          </form>
+          <table className="table is-striped is-bordered is-fullwidth mt-2 is-size-7">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Tanggal</th>
+                <th>Nama</th>
+                <th>Alamat</th>
+                <th>Orang yang Dituju</th>
+                <th>Keperluan</th>
+                <th>No Kendaraan</th>
+                <th>No KTP</th>
+                <th>Catatan</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {guests.map((guest) => (
+                <tr key={guest.id}>
+                  <td>{guest.id}</td>
+                  <td>
+                    {guest.formattedTanggal &&
+                      guest.formattedTanggal.split(" ").join("-")}
+                  </td>
+                  <td>{guest.nama}</td>
+                  <td>{guest.alamat}</td>
+                  <td>{guest.orang_yang_dituju}</td>
+                  <td>{guest.keperluan}</td>
+                  <td>{guest.no_kendaraan}</td>
+                  <td>{guest.no_ktp}</td>
+                  <td>{guest.catatan}</td>
+                  <td>
+                    <button
+                      className="btn btn-danger btn-sm"
+                      onClick={() => handleDeleteGuest(guest.id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div className="pagination-container">
+          <p>
             Total Rows: {rows} Page: {rows ? page + 1 : 0} of {pages}
           </p>
           <p className="has-text-centered has-text-danger">{msg}</p>
@@ -175,10 +179,10 @@ const GuestView = () => {
             />
           </nav>
         </div>
+        </div>
+        </div>
       </div>
-    </div>
   );
 };
-
 
 export default GuestView;

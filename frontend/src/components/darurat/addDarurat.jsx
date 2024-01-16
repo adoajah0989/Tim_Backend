@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddDarurat = () => {
   const history = useHistory();
@@ -9,10 +11,14 @@ const AddDarurat = () => {
     nomor: "",
     type: "",
   });
+  
+  const showNotification = (message) => {
+    toast.success(message);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    const numericValue = name === "nomor" ? value.replace(/\D/g, "") : value;
+    const numericValue = name === "nomor" ? value.replace(/^0+/, "") : value;
     const updatedValue = name === "nomor" ? `+62${numericValue}` : numericValue;
     setFormData((prevData) => ({
       ...prevData,
@@ -42,8 +48,9 @@ const AddDarurat = () => {
           type: "",
         });
 
-        history.push("/darurat");
+        
         showNotification("Data berhasil dimasukkan.");
+        history.push("/darurat");
       } else {
         console.error("Failed to submit form data");
       }

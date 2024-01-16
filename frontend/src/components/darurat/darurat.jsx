@@ -137,27 +137,33 @@ const Darurat = () => {
     }
   };
   const handleDelete = async (id) => {
-    try {
-      await axios.delete(`http://localhost:5000/darurat/${id}`);
-      setDarurat((prevDarurat) => prevDarurat.filter((item) => item.id !== id));
-      toast.success("Data deleted successfully", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
-    } catch (error) {
-      console.error("Error deleting data:", error.message);
-      toast.error("Error deleting data", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
+    // Display a confirmation dialog
+    const isConfirmed = window.confirm('Are you sure you want to delete this item?');
+
+    // If the user confirms, proceed with the deletion
+    if (isConfirmed) {
+      try {
+        await axios.delete(`http://localhost:5000/darurat/${id}`);
+        setDarurat((prevDarurat) => prevDarurat.filter((item) => item.id !== id));
+        toast.success("Data deleted successfully", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      } catch (error) {
+        console.error("Error deleting data:", error.message);
+        toast.error("Error deleting data", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      }
     }
   };
 
@@ -188,7 +194,7 @@ const Darurat = () => {
           <table className="table d-sm-table table-bordered table-striped-columns">
             <thead className="table-secondary">
               <tr>
-                <th scope="col">Type</th>
+                <th scope="col">Nama kontak</th>
                 <th scope="col">Nomor</th>
                 <th scope="col">Actions</th>
               </tr>

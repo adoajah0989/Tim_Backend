@@ -19,5 +19,5 @@ app.use(img);
 app.use(express.static("public"));
 app.use(bodyParser.text({type: '/'}));
  
-app.listen(5000, ()=> console.log('Server running at port 3000'));
+app.listen(5000, ()=> console.log('Server running at port 5000'));
 

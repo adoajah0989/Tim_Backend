@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { NavLink, useHistory } from "react-router-dom";
 import "../css/style.css";
@@ -18,6 +18,23 @@ export const Navbar = () => {
   const text ={
     color:"grey",
   };
+  const refreshToken = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/token");
+      setToken(response.data.accessToken);
+      const decoded = jwtDecode(response.data.accessToken);
+      console.log(decoded);
+      setName(decoded.name);
+      setExpire(decoded.exp);
+    } catch (error) {
+      if (error.response) {
+        history.push("/");
+      }
+    }
+  };
+  useEffect(() => {
+    refreshToken();
+  }, []);
 
   return (
     <nav
