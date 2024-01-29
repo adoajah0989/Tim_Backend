@@ -15,8 +15,8 @@ export const Navbar = () => {
       console.log(error);
     }
   };
-  const text ={
-    color:"grey",
+  const text = {
+    color: "grey",
   };
   const refreshToken = async () => {
     try {
@@ -52,7 +52,6 @@ export const Navbar = () => {
             alt="shield"
           />
         </NavLink>
-
       </div>
 
       <div id="navbarBasicExample" className="navbar-menu">
@@ -61,24 +60,32 @@ export const Navbar = () => {
             Guard Management System
           </label>
         </div>
-        
 
         <div className="navbar-end font-monospace has-text-weight-bold">
           <div className="navbar-item">
             <div className="navbar-start">
               <a href="/dashboard" className="navbar-item">
                 Home
-              </a>  
+              </a>
             </div>
 
             <div className="navbar-item has-dropdown is-hoverable">
               <a className="navbar-link is-arrowless">More</a>
 
               <div className="navbar-dropdown">
-                <a className="navbar-item" style={text}>About</a>
+                <a className="navbar-item" style={text}>
+                  About
+                </a>
 
                 <hr className="navbar-divider" />
-                <a className="navbar-item" style={text}>User</a>
+                <a
+                  className="navbar-item"
+                  href="/bantuan.pdf"
+                  download="bantuan.pdf"
+                  style={text}
+                >
+                  Bantuan
+                </a>
               </div>
             </div>
             <div className="buttons">

@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../css/style.css";
 import ReactPaginate from "react-paginate";
-import { startOfMonth } from "date-fns";
+import { Table, Button } from "react-bootstrap";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "react-datepicker/dist/react-datepicker.css";
 
 const GuestView = () => {
@@ -54,15 +56,28 @@ const GuestView = () => {
   };
 
   const handleDeleteGuest = async (id) => {
+    const isConfirmed = window.confirm('Are you sure you want to delete this item?');
+    if(isConfirmed){
     try {
       // Lakukan permintaan DELETE ke endpoint /guests/:id
       await axios.delete(`http://localhost:5000/guests/${id}`);
       // Refresh data setelah penghapusan
       getGuests();
+
+      toast.success("Data deleted successfully", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     } catch (error) {
       console.error("Error deleting guest:", error.message);
     }
   };
+  
+}
   useEffect(() => {
     getGuests();
   }, [startDate, endDate]);
@@ -181,6 +196,7 @@ const GuestView = () => {
         </div>
         </div>
         </div>
+        <ToastContainer />
       </div>
   );
 };
