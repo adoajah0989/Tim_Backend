@@ -100,3 +100,36 @@ body,.d-flex, .header, .box, .column p {
 .table-dark{
   color: aliceblue;
 }
+
+@media screen and (max-width: 768px) {
+  .navbar-menu {
+    display: none;
+  }
+
+  .navbar-burger {
+    display: block;
+  }
+
+  .navbar-menu.is-active {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff; /* Ganti warna latar belakang sesuai kebutuhan */
+    position: absolute;
+    top: 56px; /* Sesuaikan sesuai kebutuhan */
+    right: 0;
+    left: 0;
+    padding: 10px;
+    z-index: 1;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .field {
+    margin-bottom: 1rem;
+  }
+
+  .has-addons .control {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+}

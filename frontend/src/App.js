@@ -1,4 +1,5 @@
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Navbar from "./components/Navbar";
@@ -18,109 +19,39 @@ import ExpedisiView from "./components/ExpedisiView";
 import AssetView from "./components/AssetView";
 import AddDarurat from "./components/darurat/addDarurat";
 import InOutViews from "./components/inOutView";
+import Sidebar from "./components/sidebar";
+import sevenBox from "./components/sevenBox";
+
+// Higher-Order Component for wrapping a page with Navbar
+const withNavbar = (Component) => () => (
+  <>
+    <Navbar />
+    <Component />
+  </>
+);
 
 function App() {
   return (
-    <div>
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/">
-            <Login />
-          </Route>
-          <Route path="/register">
-            <Register />
-          </Route>
-          <Route path="/dashboard">
-            <>
-              <div className="container d-flex">
-                <div className="row-cols-2">
-                  <label>test</label>
-                </div>
-              </div>
-              <Navbar />
-              <Dashboard />
-              <Sevenbox />
-            </>
-          </Route>
-
-          <Route path="/patroli">
-            <>
-              <Navbar />
-              <PatroliList />
-            </>
-          </Route>
-          <Route path="/inout">
-            <>
-
-            <Navbar/>
-            <InOutViews/>
-            </>
-          </Route>
-
-          <Route path="/tamu">
-            <>
-              <Navbar />
-              <GuestView />
-            </>
-          </Route>
-          <Route path="/lapdi">
-            <>
-              <LapdiView />
-            </>
-          </Route>
-
-          <Route path="patroli/add">
-            <AddPatroli />
-          </Route>
-          <Route path="edit/:id">
-            <EditPatroli />
-          </Route>
-
-          <Route path="/mutasi">
-            <>
-              <Navbar />
-              <MutasiView />
-            </>
-          </Route>
-          <Route path="/bap">
-            <>
-              <Navbar />
-              <BAPList />
-            </>
-          </Route>
-          <Route path="/addDarurat">
-            <>
-              <Navbar />
-              <AddDarurat />
-            </>
-          </Route>
-          <Route path="/darurat">
-            <>
-              <Navbar />
-              <Darurat />
-            </>
-          </Route>
-          <Route path="/ekspedisi">
-            <>
-              <Navbar />
-              <ExpedisiView />
-            </>
-          </Route>
-          <Route path="/inout">
-            <>
-              <Navbar />
-              <InOutViews />
-            </>
-          </Route>
-          <Route path="/asset">
-            <>
-              <Navbar />
-              <AssetView />
-            </>
-          </Route>
-        </Switch>
-      </BrowserRouter>
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/" component={Login} />
+        <Route path="/register" component={Register} />
+        <Route path="/dashboard" component={withNavbar(sevenBox)} />
+        <Route path="/patroli" component={withNavbar(PatroliList)} />
+        <Route path="/inout" component={withNavbar(InOutViews)} />
+        <Route path="/tamu" component={withNavbar(GuestView)} />
+        <Route path="/lapdi" component={LapdiView} />
+        <Route path="/patroli/add" component={withNavbar(AddPatroli)} />
+        <Route path="edit/:id" component={withNavbar(EditPatroli)} />
+        <Route path="/mutasi" component={withNavbar(MutasiView)} />
+        <Route path="/bap" component={withNavbar(BAPList)} />
+        <Route path="/addDarurat" component={withNavbar(AddDarurat)} />
+        <Route path="/darurat" component={withNavbar(Darurat)} />
+        <Route path="/ekspedisi" component={withNavbar(ExpedisiView)} />
+        <Route path="/asset" component={withNavbar(AssetView)} />
+        <Route path="/test" component={Sidebar} />
+      </Switch>
+    </Router>
   );
 }
 

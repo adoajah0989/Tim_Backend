@@ -19,16 +19,7 @@ const sevenBox = () => {
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
       />
       <div className="d-flex col pt-3 mt-2">
-        <div id="kolom-kiri" className="column">
-          <div className="containercolumn rounded-3">
-            <div className="row">
-              <div className="rounder-3 text-light">
-                <img src="undraw_React_re_g3ui.png" alt="" srcset="" />
-              </div>
-              {/* Kolom Kiri */}
-            </div>
-          </div>
-        </div>
+        
         <div id="kolom" className="column is-one-two">
           <div className="container column rounded-3">
             <div className="row">

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Form, Button, Container, Row, Col, Alert, Image } from 'react-bootstrap';
 import { useHistory } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -29,68 +31,64 @@ const Login = () => {
   return (
     <section className="hero has-background-grey-light is-fullheight is-fullwidth">
       <div className="hero-body">
-        <div className="container">
-          <div className="columns is-centered">
-            <div className="column is-5-desktop">
-              <form onSubmit={Auth} className="box is-info">
-                <a className="gambarlogo1 columns is-centered mt-1 ">
-                  <figure class="image is-100x100">
-                    <img
-                      src="https://3.bp.blogspot.com/-Rh9L0YnoJuQ/WqtjzzFDtMI/AAAAAAAAJ4k/r5468TAe3zgeajHOds2i9N1cW_cpDbxNgCLcBGAs/s1600/Satpam.png"
-                      alt="Satpam Image"
-                    />
-                  </figure>
-                </a>
-
-                <div className="field columns is-centered">
-                  <label className="label is-size-4 mb-3">
-                    Guard Management System
-                  </label>
-                </div>
-                <p className="has-text-centered has-background-danger-light has-text-danger-dark">
-                  {msg}
-                </p>
-
-                <div className="field mt-5 px-5">
-                  <label className="label is-size-4">Email or User</label>
-                  <div className="controls">
-                    <input
-                      type="text"
-                      className="input is-rounded"
-                      placeholder="Username"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                  </div>
+        <Container>
+          <Row className="justify-content-center">
+            <Col md={5}>
+              <Form onSubmit={Auth} className="box is-info">
+                <div className="text-center mb-3">
+                  <Image
+                    src="https://3.bp.blogspot.com/-Rh9L0YnoJuQ/WqtjzzFDtMI/AAAAAAAAJ4k/r5468TAe3zgeajHOds2i9N1cW_cpDbxNgCLcBGAs/s1600/Satpam.png"
+                    alt="Satpam Image"
+                    fluid
+                    className="mb-2"
+                  />
+                  <h3 className="is-size-4">Guard Management System</h3>
                 </div>
 
-                <div className="field mt-3 px-5">
-                  <label className="label is-size-4">Password</label>
-                  <div className="controls">
-                    <input
-                      type="password"
-                      className="input is-rounded"
-                      placeholder="********"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                  </div>
+                {msg && (
+                  <Alert variant="danger" className="text-center mb-3">
+                    {msg}
+                  </Alert>
+                )}
+
+                <Form.Group controlId="formBasicEmail" className="mb-4">
+                  <Form.Label className="is-size-4">Email or User</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Username"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="is-rounded"
+                  />
+                </Form.Group>
+
+                <Form.Group controlId="formBasicPassword" className="mb-4">
+                  <Form.Label className="is-size-4">Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    placeholder="********"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="is-rounded"
+                  />
+                </Form.Group>
+
+                <div className="mb-4">
+                  <Button type="submit" variant="info" block>
+                    Login
+                  </Button>
                 </div>
 
-                <div className="field mt-5 px-5 mb-4">
-                  <button className="button is-info is-fullwidth">Login</button>
-                </div>
-
-                <div className="field columns is-centered pb-lg-5">
-                  <label classname="label">Belum meiliki akun? </label>{" "}
-                  <a href="/register">
-                    <label>Sign Up</label>
+                <div className="text-center mb-lg-5">
+                  <label className="is-size-6">Belum memiliki akun? </label>
+                  <a href="/register" className="ml-1">
+                    <label className="is-size-6">Sign Up</label>
                   </a>
                 </div>
-              </form>
-            </div>
-          </div>
-        </div>
+              </Form>
+            </Col>
+          </Row>
+        </Container>
       </div>
     </section>
   );

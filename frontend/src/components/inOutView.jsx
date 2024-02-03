@@ -1,36 +1,37 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
-import { startOfMonth } from 'date-fns';
-import 'react-datepicker/dist/react-datepicker.css';
+import { Table } from "react-bootstrap";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "react-datepicker/dist/react-datepicker.css";
 
-const InOutViews = () => {
-  
-  const [inout, setinout] = useState([]);
+const InOutView = () => {
+  const [inout, setInOut] = useState([]);
   const [page, setPage] = useState(0);
   const [limit, setLimit] = useState(10);
   const [pages, setPages] = useState(0);
   const [rows, setRows] = useState(0);
-  const [keyword, setKeyword] = useState("");
   const [query, setQuery] = useState("");
-  const [msg, setMsg] = useState("");
-
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  useEffect(() => {
-    getinOut();
-  }, [page, keyword, startDate, endDate]); // useEffect dijalankan sekali saat komponen dipasang
+  const [msg, setMsg] = useState("");
 
-  const getinOut = async () => {
+  useEffect(() => {
+    getInOut();
+  }, [page, query, startDate, endDate]);
+
+  const getInOut = async () => {
     try {
-      let url = `http://localhost:5000/inout?search_query=${keyword}&page=${page}&limit=${limit}&startDate=${startDate}&endDate=${endDate}`;
-      const response = await axios.get(url);
-      setinout(response.data.result);
+      const response = await axios.get(
+        `http://localhost:5000/inout?search_query=${query}&page=${page}&limit=${limit}&startDate=${startDate}&endDate=${endDate}`
+      );
+      setInOut(response.data.result);
       setPage(response.data.page);
       setPages(response.data.totalPage);
       setRows(response.data.totalRows);
     } catch (error) {
-      console.error("Error fetching asset:", error.message);
+      console.error("Error fetching InOut data:", error.message);
     }
   };
 
@@ -38,7 +39,7 @@ const InOutViews = () => {
     setPage(selected);
     if (selected === 9) {
       setMsg(
-        "Jika tidak menemukan data yang Anda cari, silahkan cari data dengan kata kunci spesifik!"
+        "If you don't find the data you're looking for, please search with a specific keyword!"
       );
     } else {
       setMsg("");
@@ -49,31 +50,39 @@ const InOutViews = () => {
     e.preventDefault();
     setPage(0);
     setMsg("");
-    setKeyword(query);
+    setQuery(query);
   };
 
-  const handleDeleteinout = async (id) => {
-    try {
-      // Lakukan permintaan DELETE ke endpoint /guests/:id
-      await axios.delete(`http://localhost:5000/inout/${id}`);
-      // Refresh data setelah penghapusan
-      getinOut();
-    } catch (error) {
-      console.error("Error deleting guest:", error.message);
+  const handleDeleteInOut = async (id) => {
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this item?"
+    );
+    if (isConfirmed) {
+      try {
+        await axios.delete(`http://localhost:5000/inout/${id}`);
+        getInOut();
+
+        toast.success("Data deleted successfully", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      } catch (error) {
+        console.error("Error deleting InOut data:", error.message);
+      }
     }
   };
-  useEffect(() => {
-    getinOut();
-  }, [startDate, endDate]);
+
   return (
     <div className="container mt-5">
       <div className="columns">
         <div className="column is-centered">
-          <form className="mt-4" onSubmit={searchData}>
-            <label className="mt-5 mb-3 is-size-2 has-text-weight-bold">
-              List InOut
-            </label>
-            <div className="field has-addons">
+        <form className="mt" onSubmit={searchData}>
+            <label className="mt-5 mb-3 is-size-2">List Tamu</label>
+            <div className="field">
               <div className="control is-expanded">
                 <input
                   type="text"
@@ -83,28 +92,26 @@ const InOutViews = () => {
                   placeholder="Find something here..."
                 />
               </div>
-              <div className="field">
-                <div className="control">
-                  <div className="field has-addons">
-                    <div className="control">
-                      <input
-                        type="date"
-                        className="input"
-                        value={startDate}
-                        onChange={(e) => setStartDate(e.target.value)}
-                      />
-                    </div>
-                    <div className="control">
-                      <input
-                        type="date"
-                        className="input"
-                        value={endDate}
-                        onChange={(e) => setEndDate(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                </div>
+            </div>
+            <div className="field has-addons">
+              <div className="control">
+                <input
+                  type="date"
+                  className="input"
+                  value={startDate}
+                  onChange={(e) => setStartDate(e.target.value)}
+                />
               </div>
+              <div className="control">
+                <input
+                  type="date"
+                  className="input"
+                  value={endDate}
+                  onChange={(e) => setEndDate(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="field">
               <div className="control">
                 <button type="submit" className="button is-info">
                   Search
@@ -112,56 +119,52 @@ const InOutViews = () => {
               </div>
             </div>
           </form>
-          <table className="table is-striped is-bordered is-fullwidth mt-2 is-size-7">
-            <thead>
-              <tr>
-                <th>Time In</th>
-                <th>No kendaraan</th>
-                <th>Time Out</th>
-                <th>Image</th>
-                <th>Action</th>
-              </tr>
-            </thead>
 
-            <tbody>
-              {inout.map((inout) => (
-                <tr key={inout.id}>
-                  <td>
-                  {inout.time_in}
-                  </td>
-                  <td>
-                    <p className="title is-7">{inout.no_kendaraan}</p>
-                  </td>
-                  <td>{inout.time_out}</td>
-                  <td>
-                    <a
-                      href={inout.image}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <button className="border-0">
-                        <img
-                          src={inout.image}
-                          alt="Image"
-                          style={{ maxWidth: "100px", maxHeight: "100px" }}
-                        />
-                      </button>
-                    </a>
-                    
-                  </td>
-
-                  <td>
-                    <button
-                      className="btn btn-danger btn-sm"
-                      onClick={() => handleDeleteinout(inout.id)}
-                    >
-                      Delete
-                    </button>
-                  </td>
+          <div style={{ overflowX: "auto" }}>
+            <Table striped bordered hover className="mt-2">
+              <thead>
+                <tr>
+                  <th>Time In</th>
+                  <th>No kendaraan</th>
+                  <th>Time Out</th>
+                  <th>Image</th>
+                  <th>Action</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+
+              <tbody>
+                {inout.map((item) => (
+                  <tr key={item.id}>
+                    <td>{item.time_in}</td>
+                    <td>
+                      <p className="title is-7">{item.no_kendaraan}</p>
+                    </td>
+                    <td>{item.time_out}</td>
+                    <td>
+                      <a href={item.image} target="_blank" rel="noopener noreferrer">
+                        <button className="border-0">
+                          <img
+                            src={item.image}
+                            alt="Image"
+                            style={{ maxWidth: "100px", maxHeight: "100px" }}
+                          />
+                        </button>
+                      </a>
+                    </td>
+
+                    <td>
+                      <button
+                        className="btn btn-danger btn-sm"
+                        onClick={() => handleDeleteInOut(item.id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </div>
           <p>
             Total Rows: {rows} Page: {rows ? page + 1 : 0} of {pages}
           </p>
@@ -187,8 +190,9 @@ const InOutViews = () => {
           </nav>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
 
-export default InOutViews;
+export default InOutView;

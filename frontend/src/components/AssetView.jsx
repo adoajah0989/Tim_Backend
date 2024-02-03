@@ -112,7 +112,7 @@ const AssetView = () => {
               </div>
             </div>
           </form>
-          <table className="table is-striped is-bordered is-fullwidth mt-2 is-size-7">
+          <table className="table is-striped is-bordered is-center scrollarea mt-2 is-size-7" style={{ overflowX: "auto" }}>
             <thead>
               <tr>
                 <th>Tanggal</th>
