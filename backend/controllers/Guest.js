@@ -40,83 +40,97 @@ export const getGuests = async(req, res) =>{
     
     
     const totalPage = Math.ceil(totalRows / limit);
-    const result = await Guest.findAll({
-      attributes: [
-        'id',
-        [literal("DATE_FORMAT(tanggal, '%d %m %Y')"), 'formattedTanggal'], // Format tanggal di sini
-        'nama',
-        'alamat',
-        'orang_yang_dituju',
-        'keperluan',
-        'no_kendaraan',
-        'no_ktp',
-        'catatan'
-    ],
-        where: {
-            [Op.and]: [
-              // (Tambahkan bagian ini untuk filter tanggal)
-              dateFilter,
-              // (Lanjutkan dengan filter pencarian seperti sebelumnya)
-              {
-                [Op.or]: [
+    try {
+      const result = await Guest.findAll({
+          attributes: [
+              'id',
+              [literal("DATE_FORMAT(tanggal, '%d %m %Y')"), 'formattedTanggal'], // Format tanggal di sini
+              'nama',
+              'alamat',
+              'orang_yang_dituju',
+              'keperluan',
+              'no_kendaraan',
+              'no_ktp',
+              'catatan'
+          ],
+          where: {
+              [Op.and]: [
+                  // (Tambahkan bagian ini untuk filter tanggal)
+                  dateFilter,
+                  // (Lanjutkan dengan filter pencarian seperti sebelumnya)
                   {
-                    nama: {
-                      [Op.like]: '%' + search + '%'
-                    }
+                      [Op.or]: [
+                          {
+                              nama: {
+                                  [Op.like]: '%' + search + '%'
+                              }
+                          },
+                          {
+                              tanggal: {
+                                  [Op.like]: '%' + search + '%'
+                              }
+                          },
+                          {
+                              alamat: {
+                                  [Op.like]: '%' + search + '%'
+                              }
+                          },
+                          {
+                              orang_yang_dituju: {
+                                  [Op.like]: '%' + search + '%'
+                              }
+                          },
+                          {
+                              keperluan: {
+                                  [Op.like]: '%' + search + '%'
+                              }
+                          },
+                          {
+                              no_kendaraan: {
+                                  [Op.like]: '%' + search + '%'
+                              }
+                          },
+                          {
+                              no_ktp: {
+                                  [Op.like]: '%' + search + '%'
+                              }
+                          },
+                          {
+                              catatan: {
+                                  [Op.like]: '%' + search + '%'
+                              }
+                          },
+                      ]
                   },
-                  {
-                    tanggal: {
-                      [Op.like]: '%' + search + '%'
-                    }
-                  },
-                  {
-                    alamat: {
-                      [Op.like]: '%' + search + '%'
-                    }
-                  },
-                  {
-                    orang_yang_dituju: {
-                      [Op.like]: '%' + search + '%'
-                    }
-                  },
-                  {
-                    keperluan: {
-                      [Op.like]: '%' + search + '%'
-                    }
-                  },
-                  {
-                    no_kendaraan: {
-                      [Op.like]: '%' + search + '%'
-                    }
-                  },
-                  {
-                    no_ktp: {
-                      [Op.like]: '%' + search + '%'
-                    }
-                  },
-                  {
-                    catatan: {
-                      [Op.like]: '%' + search + '%'
-                    }
-                  },
-                ]
-              },
-            ],
+              ],
           },
-        offset: offset,
-        limit: limit,
-        order:[
-            ['id', 'DESC']
-        ]
-    });
-    res.json({
-        result: result,
-        page: page,
-        limit: limit,
-        totalRows: totalRows,
-        totalPage: totalPage
-    });
-}
+          offset: offset,
+          limit: limit,
+          order: [
+              ['id', 'DESC']
+          ]
+      });
+  
+      if (result.length === 0) {
+          res.status(404).json({
+              error: 'Data not found',
+          });
+      } else {
+          res.json({
+              result: result,
+              page: page,
+              limit: limit,
+              totalRows: totalRows,
+              totalPage: totalPage
+          });
+      }
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({
+          error: 'Internal Server Error',
+      });
+  }
+};
 
 export const getGuestById = async(req, res) =>{
     try {

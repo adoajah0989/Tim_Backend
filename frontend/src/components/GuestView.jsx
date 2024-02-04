@@ -22,7 +22,18 @@ const GuestView = () => {
 
   useEffect(() => {
     getGuests();
-  }, [page, keyword, startDate, endDate]); // useEffect dijalankan sekali saat komponen dipasang
+  }, [page, startDate, endDate]); // useEffect dijalankan sekali saat komponen dipasang
+
+  const displayToast = (message, type = 'failed') => {
+    toast[type](message, {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
+  };
 
   const getGuests = async () => {
     try {
@@ -34,6 +45,10 @@ const GuestView = () => {
       setRows(response.data.totalRows);
     } catch (error) {
       console.error("Error fetching guests:", error.message);
+      if (error.response.status === 404) {
+        // Server responds with a 404 status code, display toast notification
+        displayToast("Data Tidak ditemukan", 'error');
+      }
     }
   };
 
@@ -47,6 +62,8 @@ const GuestView = () => {
       setMsg("");
     }
   };
+
+  
 
   const searchData = (e) => {
     e.preventDefault();
@@ -65,9 +82,8 @@ const GuestView = () => {
         await axios.delete(`http://localhost:5000/guests/${id}`);
         // Refresh data setelah penghapusan
         getGuests();
-
         toast.success("Data deleted successfully", {
-          position: "top-right",
+          position: "top-center",
           autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -79,9 +95,6 @@ const GuestView = () => {
       }
     }
   };
-  useEffect(() => {
-    getGuests();
-  }, [startDate, endDate]);
   return (
     <div className="container">
       <div className="columns">
