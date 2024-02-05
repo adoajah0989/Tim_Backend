@@ -1,6 +1,6 @@
 import express from 'express';
 import fileUpload from 'express-fileupload';
-import { saveAsset } from '../controllers/Assets.js';
+import { saveAsset } from '../controllers/Asset.js';
 
 const img = express();
 

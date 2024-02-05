@@ -2,50 +2,108 @@ import BAP from "../models/BAPModel.js";
 import {Op, literal} from "sequelize";
  
 export const createBAP = async (req, res) => {
-    try {
-        const { 
-            tanggal,
-            jam,
-            pemeriksa,
-            diperiksa,
-            ttl,
-            pekerjaan,
-            alamat,
-            ktp,
-            hp,
-            pertanyaan1,
-            pertanyaan2,
-            pertanyaan3,
-            pertanyaan4,
-            pertanyaan5
-        } = req.body;
+  try {
+      const { 
+          tanggal,
+          jam,
+          pemeriksa,
+          diperiksa,
+          ttl,
+          pekerjaan,
+          alamat,
+          ktp,
+          hp,
+          pertanyaan1,
+          pertanyaan2,
+          pertanyaan3,
+          pertanyaan4,
+          pertanyaan5,
+          jawaban1,
+          jawaban2,
+          jawaban3,
+          jawaban4,
+          jawaban5,
+      } = req.body;
 
-        const pertanyaan4_value = pertanyaan4 ? pertanyaan4 : '';
-        const pertanyaan5_value = pertanyaan5 ? pertanyaan5 : '';
+      const pertanyaan4_value = pertanyaan4 ? pertanyaan4 : '';
+      const pertanyaan5_value = pertanyaan5 ? pertanyaan5 : '';
+      const jawaban4_value = jawaban4 ? jawaban4 : '';
+      const jawaban5_value = jawaban5 ? jawaban5 : '';
 
-        await BAP.create({
-            tanggal,
-            jam,
-            pemeriksa,
-            diperiksa,
-            ttl,
-            pekerjaan,
-            alamat,
-            ktp,
-            hp,
-            pertanyaan1,
-            pertanyaan2,
-            pertanyaan3,
-            pertanyaan4_value,
-            pertanyaan5_value
-        });
+      await BAP.create({
+          tanggal,
+          jam,
+          pemeriksa,
+          diperiksa,
+          ttl,
+          pekerjaan,
+          alamat,
+          ktp,
+          hp,
+          pertanyaan1,
+          pertanyaan2,
+          pertanyaan3,
+          pertanyaan4_value,
+          pertanyaan5_value,
+          jawaban1,
+          jawaban2,
+          jawaban3,
+          jawaban4_value,
+          jawaban5_value,
+      });
 
-        res.json({ msg: "Data mutasi berhasil diupdate" });
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ msg: "Internal Server Error" });
-    }
+      res.json({ msg: "Data mutasi berhasil diupdate" });
+  } catch (error) {
+      console.log(error);
+      res.status(500).json({ msg: "Internal Server Error" });
+  }
 }
+
+const generateFilename = (prefix, counter, extension) => {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const fileNumber = counter;
+  const formattedDate = `${day}-${month}-${year}`;
+  return `${prefix}_${fileNumber}_${formattedDate}${extension}`;
+};
+
+export const uploadPDF = async (req, res) => {
+  const htmlContent = req.body.htmlContent;
+
+  const todayDate = new Date();
+  const day = todayDate.getDate().toString().padStart(2, '0');
+  const month = (todayDate.getMonth() + 1).toString().padStart(2, '0');
+  const year = todayDate.getFullYear();
+  const dateString = `${day}-${month}-${year}`;
+
+  const folderPath = path.join('public/file/pdf', dateString);
+  const filename = generateFilename('pdf', pdfCounter, '.pdf');
+  const filePath = path.join(folderPath, filename);
+
+  try {
+      await fs.promises.mkdir(folderPath, { recursive: true });
+
+      const browser = await puppeteer.launch();
+      const page = await browser.newPage();
+      await page.setContent(htmlContent);
+
+      const pdfBuffer = await page.pdf({
+          format: 'A4',
+          path: filePath,
+      });
+
+      await browser.close();
+
+      pdfCounter++;
+
+      res.send(pdfBuffer);
+  } catch (error) {
+      console.error('Error generating PDF:', error);
+      res.status(500).send('Error generating PDF.');
+  }
+};
 
 export const getBap = async (req, res) => {
   const page = parseInt(req.query.page) || 0;

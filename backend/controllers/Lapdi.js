@@ -10,14 +10,9 @@ const __dirname = path.dirname(__filename);
 const getStoragePath = () => {
   const now = new Date();
   const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, "0");
-  const day = String(now.getDate()).padStart(2, "0");
-  const storagePath = path.resolve(
-    "public",
-    "images",
-    "lapdi",
-    `${day}-${month}-${year}`
-  );
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const storagePath = path.resolve('public', 'image', 'lapdi', `${day}-${month}-${year}`);
 
   if (!fs.existsSync(storagePath)) {
     fs.mkdirSync(storagePath, { recursive: true });
@@ -30,7 +25,7 @@ let fileCounter = 1;
 let lastResetDay;
 
 try {
-  const data = fs.readFileSync("lastResetDay.txt", "utf8");
+  const data = fs.readFileSync('lastResetDay.txt', 'utf8');
   lastResetDay = parseInt(data);
 } catch (err) {
   lastResetDay = new Date().getDate();
@@ -43,10 +38,9 @@ const resetFileCounter = () => {
     fileCounter = 1;
     lastResetDay = currentDay;
 
-    fs.writeFileSync("lastResetDay.txt", currentDay.toString(), "utf8");
+    fs.writeFileSync('lastResetDay.txt', currentDay.toString(), 'utf8');
   }
 };
-
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     resetFileCounter();
@@ -56,25 +50,22 @@ const storage = multer.diskStorage({
     resetFileCounter();
     const now = new Date();
     const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, "0");
-    const day = String(now.getDate()).padStart(2, "0");
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
     const fileNumber = fileCounter++;
     const formattedDate = `${day}-${month}-${year}`;
-    const customFileName = `lapdi_foto${fileNumber}_${formattedDate}${path.extname(
-      file.originalname
-    )}`;
+    const customFileName = `lapdi_foto${fileNumber}_${formattedDate}${path.extname(file.originalname)}`;
     cb(null, customFileName);
   },
 });
 
 const upload = multer({ storage: storage });
-export const uploadLapdi = upload.single("images");
+export const uploadLapdi= upload.single('bukti1');
 
 export const createLapdi = async (req, res) => {
   try {
+    console.log(req.files);
     const storagePath = getStoragePath();
-    console.log("req.body:", req.body);
-    console.log("req.file:", req.file);
     const tanggal = req.body.tanggal;
     const jam = req.body.jam;
     const anggota = req.body.anggota;
@@ -83,47 +74,25 @@ export const createLapdi = async (req, res) => {
     const penyebab = req.body.penyebab;
     const kerugian = req.body.kerugian;
     const tindakan = req.body.tindakan;
-    let photo1Path = "";
-
-    if (req.file) {
-      photo1Path = req.file.filename;
-    } else {
-      console.log("No image file uploaded");
-    }
-
-    if (
-      !tanggal ||
-      !jam ||
-      !anggota ||
-      !urai ||
-      !lokasi ||
-      !penyebab ||
-      !kerugian ||
-      !tindakan
-    ) {
-      console.log("Missing required fields");
-      res
-        .status(400)
-        .json({ success: false, message: "Missing required fields" });
-      return;
-    }
+    console.log(req.file);
+const photo1Path = req.file.filename;
 
     const newPhotoTest = await Lapdi.create({
-      tanggal: tanggal,
-      jam: jam,
-      anggota: anggota,
-      urai: urai,
-      lokasi: lokasi,
-      penyebab: penyebab,
-      kerugian: kerugian,
-      tindakan: tindakan,
+      tanggal : tanggal,
+      jam : jam,
+      anggota : anggota,
+      urai : urai,
+      lokasi : lokasi,
+      penyebab : penyebab,
+      kerugian : kerugian,
+      tindakan : tindakan,
       image: `/image/${storagePath}/${photo1Path}`,
     });
 
-    res.json({ success: true, message: "Sukses Upload", newPhotoTest });
+    res.json({ success: true, message: 'Sukses Upload', newPhotoTest });
   } catch (error) {
-    console.error("Upload error:", error);
-    res.status(500).json({ success: false, message: "Server Error" });
+    console.error('Upload error:', error);
+    res.status(500).json({ success: false, message: 'Server Error' });
   }
 };
 
