@@ -167,6 +167,11 @@ const Darurat = () => {
     }
   };
 
+  const filterNomor = (nomor) => {
+    return nomor.replace(/(.{3})/, '$1-');
+  };
+
+
   return (
     <div className="container mt-5 p-lg-5">
       <h1 className="mb-5">KONTAK DARURAT</h1>
@@ -203,7 +208,7 @@ const Darurat = () => {
               {filteredDarurat.map((darurat) => (
                 <tr key={darurat.id}>
                   <td>{darurat.type}</td>
-                  <td>{darurat.nomor}</td>
+                  <td>{filterNomor(darurat.nomor)}</td>
                   <td>
                     {/* Tombol Edit */}
                     <Button
