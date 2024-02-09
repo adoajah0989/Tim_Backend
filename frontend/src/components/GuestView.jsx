@@ -95,6 +95,9 @@ const GuestView = () => {
       }
     }
   };
+  useEffect(() => {
+    getGuests();
+  }, [startDate, endDate,keyword]);
   return (
     <div className="container">
       <div className="columns">
