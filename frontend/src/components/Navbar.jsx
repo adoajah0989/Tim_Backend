@@ -100,14 +100,14 @@ const NavBar = () => {
             </NavDropdown>
           </div>
         </Nav>
-        <img
-          className="mr-3"
-          width="24"
-          height="24"
-          src="https://img.icons8.com/plumpy/24/user-male-circle.png"
-          alt="user-male-circle"
-        />
         <span className="text-white is-bold mr-3">Hello, {name}</span>
+        <img
+          width="50"
+          height="50"
+          src="https://img.icons8.com/bubbles/50/gender-neutral-user.png"
+          alt="gender-neutral-user"
+        />
+        
       </Navbar.Collapse>
     </Navbar>
   );

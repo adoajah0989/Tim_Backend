@@ -50,6 +50,9 @@ const nosidebar = (Component) => () => (
 function App() {
   return (
     <Router>
+      <Switch>
+        <Route exact path="/" component={(Login)} />
+      </Switch>
       <Navbar />
       <Switch>
         <Route exact path="/" component={Login} />
