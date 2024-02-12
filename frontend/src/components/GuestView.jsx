@@ -2,7 +2,15 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../css/style.css";
 import ReactPaginate from "react-paginate";
-import { Table, Button } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  Button,
+  Table,
+  Pagination,
+} from "react-bootstrap";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "react-datepicker/dist/react-datepicker.css";
@@ -10,7 +18,7 @@ import "react-datepicker/dist/react-datepicker.css";
 const GuestView = () => {
   const [guests, setGuests] = useState([]);
   const [page, setPage] = useState(0);
-  const [limit, setLimit] = useState(10);
+  const [limit] = useState(10); // Fixed limit, no need for state
   const [pages, setPages] = useState(0);
   const [rows, setRows] = useState(0);
   const [keyword, setKeyword] = useState("");
@@ -20,24 +28,10 @@ const GuestView = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-  useEffect(() => {
-    getGuests();
-  }, [page, startDate, endDate]); // useEffect dijalankan sekali saat komponen dipasang
-
-  const displayToast = (message, type = 'failed') => {
-    toast[type](message, {
-      position: "top-center",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-    });
-  };
-
   const getGuests = async () => {
     try {
-      let url = `http://localhost:5000/guests?search_query=${keyword}&page=${page}&limit=${limit}&startDate=${startDate}&endDate=${endDate}`;
+      const encodedKeyword = encodeURIComponent(keyword);
+      let url = `http://localhost:5000/guests?search_query=${encodedKeyword}&page=${page}&limit=${limit}&startDate=${startDate}&endDate=${endDate}`;
       const response = await axios.get(url);
       setGuests(response.data.result);
       setPage(response.data.page);
@@ -45,9 +39,11 @@ const GuestView = () => {
       setRows(response.data.totalRows);
     } catch (error) {
       console.error("Error fetching guests:", error.message);
-      if (error.response.status === 404) {
-        // Server responds with a 404 status code, display toast notification
-        displayToast("Data Tidak ditemukan", 'error');
+      if (error.response && error.response.status === 404) {
+        setGuests([]); // Reset guests array
+        setPage(0); // Reset page to the first page
+        setPages(0);
+        setRows(0);
       }
     }
   };
@@ -63,24 +59,14 @@ const GuestView = () => {
     }
   };
 
-  
-
-  const searchData = (e) => {
-    e.preventDefault();
-    setPage(0);
-    setMsg("");
-    setKeyword(query);
-  };
-
   const handleDeleteGuest = async (id) => {
     const isConfirmed = window.confirm(
       "Are you sure you want to delete this item?"
     );
     if (isConfirmed) {
       try {
-        // Lakukan permintaan DELETE ke endpoint /guests/:id
         await axios.delete(`http://localhost:5000/guests/${id}`);
-        // Refresh data setelah penghapusan
+        setQuery(""); // Reset search query
         getGuests();
         toast.success("Data deleted successfully", {
           position: "top-center",
@@ -95,55 +81,74 @@ const GuestView = () => {
       }
     }
   };
+  const searchData = (e) => {
+    e.preventDefault();
+    setPage(0);
+    setMsg("");
+    setKeyword(query);
+    getGuests();
+  };
+
+  const clearSearchOnEsc = (e) => {
+    if (e.key === "Escape") {
+      setKeyword("");
+      setQuery("");
+    }
+  };
+
   useEffect(() => {
     getGuests();
-  }, [startDate, endDate,keyword]);
+    document.addEventListener("keydown", clearSearchOnEsc);
+    return () => {
+      document.removeEventListener("keydown", clearSearchOnEsc);
+    };
+  }, [page, startDate, endDate, keyword]);
   return (
-    <div className="container">
-      <div className="columns">
-        <div className="column is-centered">
-          <form className="mt" onSubmit={searchData}>
-            <label className="mt-5 mb-3 is-size-2">List Tamu</label>
-            <div className="field">
-              <div className="control is-expanded">
-                <input
-                  type="text"
-                  className="input"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Find something here..."
-                />
-              </div>
+
+    <Container>
+      <Row className="justify-content-center">
+        <Col>
+          <Form className="mt " onSubmit={searchData}>
+            <Form.Label className="mt-5 mb-3 display-4 header">
+              List Tamu
+            </Form.Label>
+            <Form.Group className="m-3">
+              <Form.Control
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Find something here..."
+              />
+            </Form.Group>
+            <Form.Group className="mx-3">
+              <Row>
+                <Col>
+                  <Form.Control
+                    className=" my-2"
+                    type="date"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                  />
+                </Col>
+                <Col>
+                  <Form.Control
+                    className=" my-2"
+                    type="date"
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                  />
+                </Col>
+              </Row>
+            </Form.Group>
+            <div className="m-3">
+              <Button className="sb-button" type="submit">
+                Search
+              </Button>
             </div>
-            <div className="field has-addons">
-              <div className="control">
-                <input
-                  type="date"
-                  className="input"
-                  value={startDate}
-                  onChange={(e) => setStartDate(e.target.value)}
-                />
-              </div>
-              <div className="control">
-                <input
-                  type="date"
-                  className="input"
-                  value={endDate}
-                  onChange={(e) => setEndDate(e.target.value)}
-                />
-              </div>
-            </div>
-            <div className="field">
-              <div className="control">
-                <button type="submit" className="button is-info">
-                  Search
-                </button>
-              </div>
-            </div>
-          </form>
+          </Form>
 
           <div style={{ overflowX: "auto" }}>
-            <table className="table is-striped is-bordered is-fullwidth mt-2 is-size-7">
+            <Table striped bordered hover responsive className="mt-2 text-sm">
               <thead>
                 <tr>
                   <th>ID</th>
@@ -175,47 +180,39 @@ const GuestView = () => {
                     <td>{guest.no_ktp}</td>
                     <td>{guest.catatan}</td>
                     <td>
-                      <button
-                        className="btn btn-danger btn-sm"
+                      <Button
+                        variant="danger"
+                        size="sm"
                         onClick={() => handleDeleteGuest(guest.id)}
                       >
                         Delete
-                      </button>
+                      </Button>
                     </td>
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </Table>
           </div>
           <div className="pagination-container">
             <p>
               Total Rows: {rows} Page: {rows ? page + 1 : 0} of {pages}
             </p>
-            <p className="has-text-centered has-text-danger">{msg}</p>
-            <nav
-              className="pagination is-centered"
-              key={rows}
-              role="navigation"
-              aria-label="pagination"
-            >
-              <ReactPaginate
-                previousLabel={"< Prev"}
-                nextLabel={"Next >"}
-                pageCount={Math.min(10, pages)}
-                onPageChange={changePage}
-                containerClassName={"pagination-list"}
-                pageLinkClassName={"pagination-link"}
-                previousLinkClassName={"pagination-previous"}
-                nextLinkClassName={"pagination-next"}
-                activeLinkClassName={"pagination-link is-current"}
-                disabledLinkClassName={"pagination-link is-disabled"}
+            <p className="text-center text-danger">{msg}</p>
+            <Pagination className="justify-content-center">
+              <Pagination.Prev
+                onClick={() => changePage({ selected: page - 1 })}
+                disabled={page === 0}
               />
-            </nav>
+              <Pagination.Next
+                onClick={() => changePage({ selected: page + 1 })}
+                disabled={page === pages - 1}
+              />
+            </Pagination>
           </div>
-        </div>
-      </div>
+        </Col>
+      </Row>
       <ToastContainer />
-    </div>
+    </Container>
   );
 };
 

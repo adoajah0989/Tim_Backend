@@ -101,13 +101,22 @@ body,.d-flex, .header, .box, .column p {
   color: aliceblue;
 }
 
-@media screen and (max-width: 768px) {
+.sb{
+  display: flex;
+  height: 100%;
+}
+
+
+@media screen and (max-width: 979px) {
   .navbar-menu {
     display: none;
   }
 
   .navbar-burger {
     display: block;
+  }
+  .sb{
+    display: none;
   }
 
   .navbar-menu.is-active {
@@ -123,7 +132,7 @@ body,.d-flex, .header, .box, .column p {
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 979px) {
   .field {
     margin-bottom: 1rem;
   }
@@ -133,3 +142,4 @@ body,.d-flex, .header, .box, .column p {
     margin-bottom: 1rem;
   }
 }
+

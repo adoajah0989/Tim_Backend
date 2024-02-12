@@ -21,12 +21,30 @@ import AddDarurat from "./components/darurat/addDarurat";
 import InOutViews from "./components/inOutView";
 import Sidebar from "./components/sidebar";
 import sevenBox from "./components/sevenBox";
+import FloatingSidebar from "./components/FloatingSidebar";
+import {
+  Container,
+  Row,
+  Col,
+} from "react-bootstrap";
 
 // Higher-Order Component for wrapping a page with Navbar
 const withNavbar = (Component) => () => (
   <>
     <Navbar />
+    <Container fluid>
+      <div style={{ display: "flex",margin:'0' }}>
+        <FloatingSidebar />
+        <Component />
+      </div>
+    </Container>
+  </>
+);
+const nosidebar = (Component) => () => (
+  <>
+    <Navbar />
     <Component />
+    <Footer/>
   </>
 );
 
@@ -36,7 +54,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Login} />
         <Route path="/register" component={Register} />
-        <Route path="/dashboard" component={withNavbar(sevenBox)} />
+        <Route path="/dashboard" component={nosidebar(sevenBox)} />
         <Route path="/patroli" component={withNavbar(PatroliList)} />
         <Route path="/inout" component={withNavbar(InOutViews)} />
         <Route path="/tamu" component={withNavbar(GuestView)} />
