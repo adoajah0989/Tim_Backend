@@ -31,7 +31,7 @@ import {
 // Higher-Order Component for wrapping a page with Navbar
 const withNavbar = (Component) => () => (
   <>
-    <Navbar />
+    
     <Container fluid>
       <div style={{ display: "flex",margin:'0' }}>
         <FloatingSidebar />
@@ -42,7 +42,6 @@ const withNavbar = (Component) => () => (
 );
 const nosidebar = (Component) => () => (
   <>
-    <Navbar />
     <Component />
     <Footer/>
   </>
@@ -51,6 +50,7 @@ const nosidebar = (Component) => () => (
 function App() {
   return (
     <Router>
+      <Navbar />
       <Switch>
         <Route exact path="/" component={Login} />
         <Route path="/register" component={Register} />

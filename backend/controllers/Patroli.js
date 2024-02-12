@@ -275,41 +275,44 @@ export const savePatroli = (req, res) => {
 };
 
 export const deletePatroli = async (req, res) => {
-  const patroli = await PatroliModel.findOne({
-    where: {
-      id: req.params.id,
-    },
-  });
-
-  if (!patroli) {
-    return res.status(404).json({ msg: "No Data Found" });
-  }
-
   try {
-    const imagePath = patroli.url1;
+    const patroli = await PatroliModel.findOne({
+      where: {
+        id: req.params.id,
+      },
+    });
 
-    if (!imagePath) {
-      return res.status(400).json({ msg: "Image path is undefined" });
+    if (!patroli) {
+      return res.status(404).json({ msg: "No Data Found" });
     }
 
+    const imagePath = patroli.url1;
     const filepath = `./public/images/${imagePath}`;
 
     // Pengecekan apakah file dengan path tersebut ada
-    if (fs.existsSync(filepath)) {
-      fs.unlinkSync(filepath);
+    if (imagePath && fs.existsSync(filepath)) {
+      try {
+        fs.unlinkSync(filepath);
+      } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({ msg: "Error deleting file" });
+      }
+    }
 
+    try {
       await PatroliModel.destroy({
         where: {
           id: req.params.id,
         },
       });
-
-      res.status(200).json({ msg: "Patroli Deleted Successfully" });
-    } else {
-      res.status(404).json({ msg: "File not found" });
+      console.log(`Data with id ${req.params.id} deleted successfully.`);
+      return res.status(200).json({ msg: "Patroli Deleted Successfully" });
+    } catch (error) {
+      console.log(error.message);
+      return res.status(500).json({ msg: "Error deleting Patroli data" });
     }
   } catch (error) {
     console.log(error.message);
-    res.status(500).json({ msg: "Internal Server Error" });
+    return res.status(500).json({ msg: "Internal Server Error" });
   }
 };

@@ -96,12 +96,18 @@ const NavBar = () => {
               <NavDropdown.Item href="/bantuan.pdf" download="bantuan.pdf">
                 Bantuan
               </NavDropdown.Item>
-              <NavDropdown.Item onClick={Logout}>
-                Log out
-              </NavDropdown.Item>
+              <NavDropdown.Item onClick={Logout}>Log out</NavDropdown.Item>
             </NavDropdown>
           </div>
         </Nav>
+        <img
+          className="mr-3"
+          width="24"
+          height="24"
+          src="https://img.icons8.com/plumpy/24/user-male-circle.png"
+          alt="user-male-circle"
+        />
+        <span className="text-white is-bold mr-3">Hello, {name}</span>
       </Navbar.Collapse>
     </Navbar>
   );
