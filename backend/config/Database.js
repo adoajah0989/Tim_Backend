@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
  
-const db = new Sequelize('guard_db', 'root', '', {
+const db = new Sequelize('nurman', 'root', '', {
     host: "localhost",
     dialect: "mysql"
 });

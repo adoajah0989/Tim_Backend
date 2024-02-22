@@ -22,46 +22,46 @@ import InOutViews from "./components/inOutView";
 import Sidebar from "./components/sidebar";
 import sevenBox from "./components/sevenBox";
 import FloatingSidebar from "./components/FloatingSidebar";
-import {
-  Container,
-  Row,
-  Col,
-} from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 
 // Higher-Order Component for wrapping a page with Navbar
-const withNavbar = (Component) => () => (
-  <>
-    <Navbar/>
-    <Container fluid>
-      <div style={{ display: "flex",margin:'0' }}>
-        <FloatingSidebar />
-        <Component />
-      </div>
-    </Container>
-  </>
-);
-const nosidebar = (Component) => () => (
-  <>
-    <Component />
-    <Footer/>
-  </>
-);
+const withNavbar = (Component) => () =>
+  (
+    <>
+      <Container>
+      <div style={{ position: 'fixed', top: '70px', left: '10px', zIndex: '100' }}>
+            <FloatingSidebar />
+
+          </div>
+      <Component />
+      </Container>
+    </>
+  );
+const nosidebar = (Component) => () =>
+  (
+    <>
+      <Component />
+      <Footer />
+    </>
+  );
 
 function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/" component={(Login)} />
+        <Route exact path="/" component={Login} />
       </Switch>
-      <Switch>
-        <Route path="/register" component={Register} />
+      <Navbar/>
+        <Switch>
+
         <Route path="/dashboard" component={nosidebar(sevenBox)} />
+        <Route path="/register" component={Register} />
         <Route path="/patroli" component={withNavbar(PatroliList)} />
         <Route path="/inout" component={withNavbar(InOutViews)} />
         <Route path="/tamu" component={withNavbar(GuestView)} />
-        <Route path="/lapdi" component={LapdiView} />
+        <Route path="/lapdi" component={withNavbar(LapdiView)} />
         <Route path="/patroli/add" component={withNavbar(AddPatroli)} />
-        <Route path="edit/:id" component={withNavbar(EditPatroli)} />
+        <Route path="/edit/:id" component={withNavbar(EditPatroli)} />
         <Route path="/mutasi" component={withNavbar(MutasiView)} />
         <Route path="/bap" component={withNavbar(BAPList)} />
         <Route path="/addDarurat" component={withNavbar(AddDarurat)} />
@@ -70,6 +70,7 @@ function App() {
         <Route path="/asset" component={withNavbar(AssetView)} />
         <Route path="/test" component={Sidebar} />
       </Switch>
+
     </Router>
   );
 }

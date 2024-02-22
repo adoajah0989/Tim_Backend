@@ -59,6 +59,14 @@ const GuestView = () => {
     }
   };
 
+  const searchData = (e) => {
+    e.preventDefault();
+    setPage(0);
+    setMsg("");
+    setKeyword(query);
+    getGuests();
+  };
+  
   const handleDeleteGuest = async (id) => {
     const isConfirmed = window.confirm(
       "Are you sure you want to delete this item?"
@@ -81,13 +89,7 @@ const GuestView = () => {
       }
     }
   };
-  const searchData = (e) => {
-    e.preventDefault();
-    setPage(0);
-    setMsg("");
-    setKeyword(query);
-    getGuests();
-  };
+
 
   const clearSearchOnEsc = (e) => {
     if (e.key === "Escape") {
@@ -106,10 +108,10 @@ const GuestView = () => {
   return (
 
     <Container>
-      <Row className="justify-content-center">
+      <Row  className="ml-1 p-3">
         <Col>
-          <Form className="mt " onSubmit={searchData}>
-            <Form.Label className="mt-5 mb-3 display-4 header">
+          <Form className="" onSubmit={searchData}>
+            <Form.Label className="mt-2 mb-3 display-4 header">
               List Tamu
             </Form.Label>
             <Form.Group className="m-3">
@@ -147,8 +149,8 @@ const GuestView = () => {
             </div>
           </Form>
 
-          <div style={{ overflowX: "auto" }}>
-            <Table striped bordered hover responsive className="mt-2 text-sm">
+          <div style={{width:"100%", overflowX: "auto" }}>
+            <Table  striped bordered responsive size="sm" className="mt-2">
               <thead>
                 <tr>
                   <th>ID</th>

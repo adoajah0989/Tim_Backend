@@ -7,20 +7,17 @@ import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 const FloatingSidebar = () => {
   return (
     <div className="sb">
-      <Sidebar>
+      <Sidebar width="150px" >
         <Menu>
+          <MenuItem component={<Link to="/Tamu" />}>Tamu</MenuItem>
+          <MenuItem component={<Link to="/patroli" />}>Patroli</MenuItem>
           <MenuItem component={<Link to="/inout" />}> in-OUT</MenuItem>
-          <MenuItem component={<Link to="/tamu" />}> tamu</MenuItem>
-          <MenuItem> E-commerce</MenuItem>
-          <MenuItem> Examples</MenuItem>
-          <MenuItem> Examples</MenuItem>
-          <MenuItem> Examples</MenuItem>
-          <MenuItem> Examples</MenuItem>
-          <MenuItem> Examples</MenuItem>
-          <MenuItem> Examples</MenuItem>
-          <MenuItem> Examples</MenuItem>
-          <MenuItem> Examples</MenuItem>
-          <MenuItem> Examples</MenuItem>
+          <MenuItem component={<Link to="/lapdi" />}>Lapdi</MenuItem>
+          <MenuItem component={<Link to="/Mutasi" />}>Mutasi</MenuItem>
+          <MenuItem component={<Link to="/bap" />}>B A P</MenuItem>
+          <MenuItem component={<Link to="/asset" />}>Asset</MenuItem>
+          <MenuItem component={<Link to="/ekspedisi" />}>Ekspedisi</MenuItem>
+          <MenuItem component={<Link to="/darurat" />}>Darurat</MenuItem>
         </Menu>
       </Sidebar>
     </div>

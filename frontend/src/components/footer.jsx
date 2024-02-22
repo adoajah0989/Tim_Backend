@@ -8,9 +8,6 @@ const Footer = () => {
     <footer style={footerStyle}>
       <div id="footer" className="container text-center">
         <p>&copy; Guard Management System </p>
-        <a className="text-link" href="/bantuan.pdf" download="bantuan.pdf">
-          Bantuan
-        </a>
       </div>
     </footer>
     </div>

@@ -71,7 +71,7 @@ const NavBar = () => {
   };
 
   return (
-    <Navbar bg="007BA7" variant="" sticky="top" expand="lg" className="p-3">
+    <Navbar bg="007BA7" variant="" sticky="top" expand="md" className="p-2">
       <Navbar.Brand as={NavLink} to="/dashboard">
         <img
           width="40"

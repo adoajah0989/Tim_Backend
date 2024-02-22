@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "bulma/css/bulma.min.css";
 import axios from 'axios';
-import Navbar from "./Navbar";
 import ReactPaginate from "react-paginate";
 import { startOfMonth } from 'date-fns';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -75,7 +74,6 @@ const LapdiView = () => {
 
   return (
     <div className="container pt-md-5">
-      <Navbar />
       <form className="mt-4" onSubmit={searchData}>
         <label className="mt-5 mb-3 is-size-2">List Lapdi</label>
           <div className="field has-addons">

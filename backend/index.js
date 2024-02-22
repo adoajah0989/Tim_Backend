@@ -10,7 +10,18 @@ import bodyParser from "express";
 dotenv.config();
 const app = express();
  
-app.use(cors({ credentials:true, origin:'http://localhost:3000'}));
+const allowedOrigins = ['https://guard-front-hn1lab02v-adonurmans-projects.vercel.app', 'http://localhost:3000'];
+
+app.use(cors({
+  credentials: true,
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+}));
 app.use(cookieParser());
 app.use(express.json());
 app.use(FileUpload());
